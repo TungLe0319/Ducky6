@@ -4,7 +4,7 @@ import { dbContext } from '../db/DbContext.js';
 
 class EventService{
 
- async getAll(){
+ async getEvents(){
 //don't forget to .populate
  }
 
