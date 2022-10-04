@@ -3,27 +3,31 @@
     <Navbar />
   </header>
   <main>
-    <router-view />
-  </main>
-  <footer>
-    <div class="bg-dark text-light text-center p-4">
-      Made with 💖 by CodeWorks
+    <SideBar />
+    <div :style="{'margin-left' : sidebarWidth}">
+
+      <router-view />
     </div>
-  </footer>
+  </main>
+ 
 </template>
 
 <script>
 import { computed } from 'vue'
 import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
+import SideBar from "./components/sidebar/SideBar.vue"
+import { sidebarWidth } from "./components/sidebar/state.js"
+
 
 export default {
   setup() {
     return {
-      appState: computed(() => AppState)
+      appState: computed(() => AppState),
+      sidebarWidth,
     }
   },
-  components: { Navbar }
+  components: { Navbar, SideBar, }
 }
 </script>
 <style lang="scss">
