@@ -1,11 +1,12 @@
 import { Auth0Provider } from '@bcwdev/auth0provider';
+import { eventsService } from "../services/EventsService.js";
 import BaseController from '../utils/BaseController.js';
 
 export class EventsController extends BaseController {
   constructor() {
     super('/api/events');
     this.router
-      .get('', this.getAll)
+      .get('', this.getEvents)
       .get('/:Id', this.getById)
       //NOTE MiddleWare Here ORDER MATTERS
       .use(Auth0Provider.getAuthorizedUserInfo)
@@ -14,9 +15,10 @@ export class EventsController extends BaseController {
       .delete('/:Id', this.remove);
       /*  the '/:Id' are magicVariable words that must Match the req.params.Id in the below edit and remove and get by Id async functions.*/
   }
-  async getAll(req, res, next) {
+  async getEvents(req, res, next) {
     try {
-      res.send();
+      const events = await eventsService.getEvents()
+      res.send(events);
     } catch (error) {
       next(error);
     }

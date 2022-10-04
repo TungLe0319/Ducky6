@@ -5,6 +5,11 @@ import { dbContext } from '../db/DbContext.js';
 class EventService{
 
  async getEvents(){
+ const event = await dbContext.Event.find().populate('creator', 'name picture')
+
+ return event
+
+
 //don't forget to .populate
  }
 
