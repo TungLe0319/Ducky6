@@ -7,7 +7,7 @@ export class EventsController extends BaseController {
     super('/api/events');
     this.router
       .get('', this.getEvents)
-      .get('/:Id', this.getById)
+      .get('/:Id', this.getEventById)
       //NOTE MiddleWare Here ORDER MATTERS
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
@@ -24,10 +24,10 @@ export class EventsController extends BaseController {
     }
   }
 
-  async getById(req, res, next) {
+  async getEventById(req, res, next) {
     try {
-      //  const PlaceHolder = await PlaceholderService.getById(req.params.Id)
-      res.send();
+      const event = await eventsService.getEventById(req.params.id)
+      res.send(event);
     } catch (error) {
       next(error);
     }

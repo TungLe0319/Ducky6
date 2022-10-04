@@ -1,49 +1,45 @@
-import {Schema} from 'mongoose';
+import { Schema } from 'mongoose';
 
 const ObjectId = Schema.Types.ObjectId;
 
 export const EventSchema = new Schema(
   {
-    
-  
- name: {
+    name: {
       type: String,
       min: 0,
       required: true,
     },
-  
-   description: {
+
+    description: {
       type: String,
       default: '',
       minLength: 3,
     },
-   coverImg: {
+    coverImg: {
       type: String,
       default: '',
       minLength: 3,
     },
-  location: {
+    location: {
       type: String,
       default: '',
       minLength: 3,
     },
-   capacity: {
+    capacity: {
       type: Number,
       default: '',
       minLength: 3,
     },
-    startDate:{
-      type:Date,
-      default:'',
-
+    startDate: {
+      type: Date,
+      default: '',
     },
-    isCanceled:{
-      type:Boolean,
-      default:false,
-
+    isCanceled: {
+      type: Boolean,
+      default: false,
     },
-type:{enum: ['convention','sport','digital']},
-  
+    type: { type: String, enum: ['convention', 'sport', 'digital'] },
+
     creatorId: { type: ObjectId, required: true, ref: 'Account' },
   },
   {
@@ -60,5 +56,3 @@ EventSchema.virtual('creator', {
   justOne: true,
   ref: 'Account',
 });
-
-
