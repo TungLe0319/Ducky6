@@ -3,8 +3,8 @@
     <Navbar />
   </header>
   <main>
-    <SideBar />
-    <div :style="{'margin-left' : sidebarWidth}">
+    <SideBar  />
+    <div :style="{'margin-left' : sidebarWidth}" class="p-1" >
 
       <router-view />
     </div>
@@ -32,4 +32,5 @@ export default {
 </script>
 <style lang="scss">
 @import "./assets/scss/main.scss";
+
 </style>

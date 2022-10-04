@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="to" class="link" :class="{active:isActive}">
+  <router-link :to="to" class="link  " :class="collapsed? 'py-4 ': 'p-4', { active: isActive} ">
     <i class="icon " :class="icon"></i>
     <transition name="fade">
       <span v-if="!collapsed">
@@ -43,13 +43,16 @@ export default {
   height: 1.5em;
   color: white;
   text-decoration: none;
+  transition: all 0.5s linear;
 }
 
 .link:hover {
   background-color: var(--sidebar-item-hover);
+  transition: all 0.5s ease;
 }
 
 .link.active {
   background-color: var(--sidebar-item-active);
+  box-shadow: inset 1px 1px 4px rgb(21, 4, 44);
 }
 </style>
