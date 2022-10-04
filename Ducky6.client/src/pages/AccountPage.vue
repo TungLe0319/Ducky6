@@ -1,9 +1,10 @@
 <template>
-  <div class="about text-center">
+  <div class="text-center accountPage">
     <h1>Welcome {{ account.name }}</h1>
     <img class="rounded" :src="account.picture" alt="" />
     <p>{{ account.email }}</p>
-    <button data-bs-toggle="modal" data-bs-target="#formModal" class="btn btn-primary">EDIT ACCOUNT</button>
+    <button data-bs-toggle="modal" data-bs-target="#formModal" class="btn btn-primary button-50">EDIT ACCOUNT</button>
+    
   </div>
   <AccountForm />
 </template>
@@ -27,4 +28,11 @@ export default {
 img {
   max-width: 100px;
 }
+
+.accountPage{
+
+
+}
+
+
 </style>

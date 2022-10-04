@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar" :style="{ width: sidebarWidth }">
+  <div class="sidebar " :style="{ width: sidebarWidth }">
     <h1 class="text-shadow titleText pointer">
       <span v-if="collapsed" class="titleText">
         <div><img src="https://cdn-icons-png.flaticon.com/800/7207/7207387.png" alt="" width="30" height="30" class="rounded"></div>
@@ -62,7 +62,9 @@ export default {
 <style lang="scss" scoped>
 .sidebar {
   color: white;
-  background-color: var(--sidebar-bg-color);
+  background-position: center;
+  background-size: cover;
+ background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.wallpapermaiden.com%2Fimage%2F2018%2F09%2F13%2Flow-poly-triangles-purple-gradient-24356.png&f=1&nofb=1&ipt=84c87811c5cc5448f2977dea2b9b70d93cd91647bb5a58c69fe52cb3cd72fafa&ipo=images);
 transition: all 1.5s ease;
 
   float: left;
@@ -125,8 +127,11 @@ transition: all 1.5s ease;
     position: relative;
   }
 
+  .sidebar{
+    display: none;
+  }
   .links {
-    transition: 3.4s ease;
+    transition: 0.75s ease;
   }
 }
 </style>

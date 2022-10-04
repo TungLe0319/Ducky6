@@ -45,6 +45,14 @@ a:hover {
   text-decoration: none;
 }
 
+.navbar{
+    background-position: center;
+  background-size: cover;
+ background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.wallpapermaiden.com%2Fimage%2F2018%2F09%2F13%2Flow-poly-triangles-purple-gradient-24356.png&f=1&nofb=1&ipt=84c87811c5cc5448f2977dea2b9b70d93cd91647bb5a58c69fe52cb3cd72fafa&ipo=images);
+transition: all 1.5s ease;
+
+}
+
 .nav-link {
   text-transform: uppercase;
 }
@@ -53,5 +61,6 @@ a:hover {
   border-bottom: 2px solid var(--bs-success);
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
+  
 }
 </style>
