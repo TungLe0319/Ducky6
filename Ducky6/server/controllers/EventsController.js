@@ -1,5 +1,7 @@
 import { Auth0Provider } from '@bcwdev/auth0provider';
-import { eventsService } from "../services/EventsService.js";
+import { commentsService } from "../services/CommentsService.js";
+import { eventsService } from '../services/EventsService.js';
+import { ticketsService } from "../services/TicketsService.js";
 import BaseController from '../utils/BaseController.js';
 
 export class EventsController extends BaseController {
@@ -7,17 +9,16 @@ export class EventsController extends BaseController {
     super('/api/events');
     this.router
       .get('', this.getEvents)
-      .get('/:Id', this.getEventById)
-      //NOTE MiddleWare Here ORDER MATTERS
+      .get('/:id', this.getEventById)
+      .get('/:id/comments',this.getCommentsByEventId)
+     
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .post('', this.create)
-      .put('/:Id', this.edit)
-      .delete('/:Id', this.remove);
-      /*  the '/:Id' are magicVariable words that must Match the req.params.Id in the below edit and remove and get by Id async functions.*/
+      .post('', this.createEvent);
+  
   }
   async getEvents(req, res, next) {
     try {
-      const events = await eventsService.getEvents()
+      const events = await eventsService.getUncancelledEvents(req.query);
       res.send(events);
     } catch (error) {
       next(error);
@@ -26,42 +27,51 @@ export class EventsController extends BaseController {
 
   async getEventById(req, res, next) {
     try {
-      const event = await eventsService.getEventById(req.params.id)
+      const event = await eventsService.getEventById(req.params.id);
       res.send(event);
     } catch (error) {
       next(error);
     }
   }
 
-  async create(req, res, next) {
+
+async getTicketsByEventId(req, res, next){
+try {
+  const  tickets = await ticketsService.getTicketByEventId(req.params.id)
+  res.send(tickets)
+} catch (error) {
+  next(error)
+}
+}
+
+async getCommentsByEventId(req, res,next){
+  try {
+    //NOTE COMMENTS SERVICE
+    const comments = await commentsService.getCommentsByEventId(req.params.id)
+    res.send(comments)
+  } catch (error) {
+    next(error)
+  }
+}
+
+  async createEvent(req, res, next) {
     try {
-      //formData is same thing as the req.body.. interchangeable
-      // formData.creatorId = req.userInfo.id <--maybe.. Forces them to be who they say they are
-      // const PlaceHolder = await Service.create(req.body)
-      // res.send(PlaceHolder)
+      req.body.creatorId = req.userInfo.id;
+      const event = await eventsService.createEvent(req.body);
+      res.send(event);
     } catch (error) {
       next(error);
     }
   }
 
-  async edit(req, res, next) {
+  async removeEvent(req, res, next) {
     try {
-
-      //the req.userInfo is from the previous create method formData.creatorId
-      //same thing will be needed if you use a remove/delete method.
-      //  const PlaceHolder = await PlaceHolderService.edit(req.body, req.userInfo,req.params.Id)
-      res.send();
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  async remove(req, res, next) {
-    try {
+      await eventsService.cancelEvent(req.params.id, req.userInfo);
       // await Service.remove(req.params.Id, req.userInfo)
-      //res.send('Successfully Removed')
+      res.send('Successfully Removed');
     } catch (error) {
       next(error);
     }
   }
+
 }

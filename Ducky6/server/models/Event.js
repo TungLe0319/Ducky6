@@ -38,7 +38,11 @@ export const EventSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    type: { type: String, enum: ['convention', 'sport', 'digital'] },
+    type: {
+      type: String,
+      required: true,
+      enum: ['convention', 'sport', 'digital', 'concert'],
+    },
 
     creatorId: { type: ObjectId, required: true, ref: 'Account' },
   },
