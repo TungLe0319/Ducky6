@@ -21,7 +21,7 @@ export const TicketSchema = new Schema(
 //only one person can have a ticket, another person cannot have the same ticket
 TicketSchema.index({eventId:1, accountId :1},{unique : true})
 
-TicketSchema.virtual('account', {
+TicketSchema.virtual('profile', {
   localField: 'accountId',
   foreignField: '_id',
   justOne: true,

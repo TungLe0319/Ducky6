@@ -3,7 +3,7 @@ import { dbContext } from '../db/DbContext.js';
 
 class EventService {
   async cancelEvent(id, userInfo) {
-    const event = await this.getEventById(id);
+    const event = await this.getEventThatIsNotCancelledById(id);
     // @ts-ignore
     if (userInfo.id != event.creatorId.toString()) {
       throw new Forbidden('Not Your Event To Remove, Begone!');
@@ -29,7 +29,7 @@ class EventService {
   }
 
   //Id is req.params.id
-  async getEventById(id) {
+  async getEventThatIsNotCancelledById(id) {
     const event = await dbContext.Events.findById(id).populate(
       'creator',
       'name picture'
@@ -40,7 +40,33 @@ class EventService {
     return event;
   }
 
+  async editEvent(eventData, eventId, userInfo) {
+    const event = await this.getEventThatIsNotCancelledById(eventId);
 
+    // @ts-ignore
+    if (userInfo.id != event.creatorId.toString()) {
+      throw new Forbidden('Not Yours To Edit! BEGONE!');
+    }
+    event.name = eventData.name || event.name;
+    event.description = eventData.description || event.description;
+
+    await event.save();
+    return event;
+    //name
+
+    //description
+
+    //save
+    //return
+  }
+  // async getEventThatIsNotCancelled(id){
+  //   const event = await this.getEventById(id)
+
+  //   if (event.isCanceled) {
+  //     throw new BadRequest('This Event Is Cancelled Sorry...')
+  //   }
+
+  // }
 }
 
 export const eventsService = new EventService();

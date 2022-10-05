@@ -1,5 +1,7 @@
 <template>
-  <div class="Event-Details"></div>
+  <div class="Event-Details">
+    <h1>Hi from the EventDetails Page</h1>
+  </div>
 </template>
 
 <script>

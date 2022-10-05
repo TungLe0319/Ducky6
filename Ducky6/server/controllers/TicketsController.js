@@ -11,7 +11,7 @@ export class TicketsController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createTicket)
      
-      .delete('/:Id', this.remove);
+      .delete('/:id', this.deleteTicket);
       /*  the '/:Id' are magicVariable words that must Match the req.params.Id in the below edit and remove and get by Id async functions.*/
   }
  
@@ -26,10 +26,10 @@ export class TicketsController extends BaseController {
     }
   }
 
-  async remove(req, res, next) {
+  async deleteTicket(req, res, next) {
     try {
-      const ticket = await ticketsService.removeTicket(req.params.ticketId,req.userInfo.id)
-      // await Service.remove(req.params.Id, req.userInfo)
+      const ticket = await ticketsService.deleteTicket(req.params.ticketId,req.userInfo.id)
+     
       res.send('Successfully Removed',ticket)
     } catch (error) {
       next(error);
