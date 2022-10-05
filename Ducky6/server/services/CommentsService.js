@@ -44,6 +44,12 @@ class CommentsService {
     }
     return comment;
   }
+
+async getComments(){
+  const comment = await dbContext.Comments.find().populate('creator' ,' name picture')
+  return comment
+}
+
 }
 
 export const commentsService = new CommentsService();

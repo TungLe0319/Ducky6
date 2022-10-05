@@ -6,6 +6,10 @@
       
       </span>
       <span class="titleText" v-else>Vue Sidebar</span>
+      <span :class="collapsed? 'visually-hidden':''">
+
+        <Login/>
+      </span>
     </h1>
     <div
       class="links"
@@ -20,6 +24,7 @@
       <SideBarLink to="/account" icon="mdi mdi-account fs-2" class="text-shadow"
         >Account</SideBarLink
       >
+     
     </div>
     <span
       class="collapse-icon"
@@ -34,6 +39,7 @@
 <script>
 import { collapsed, sidebarWidth, toggleSidebar } from './state.js';
 import SideBarLink from './SideBarLink.vue';
+import Login from "../Login.vue";
 
 export default {
   setup() {
@@ -43,7 +49,7 @@ export default {
       sidebarWidth,
     };
   },
-  components: { SideBarLink },
+  components: { SideBarLink, Login },
 };
 </script>
 

@@ -9,23 +9,18 @@
     </button>
 
     <div class="dropdown my-2 my-lg-0" v-else>
-      <div
-        class="dropdown-toggle selectable"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
-        id="authDropdown"
-      >
-        <div v-if="account.picture || user.picture">
+     
+        <div v-if="account.picture || user.picture" class="ms-3 mb-3">
           <img
             :src="account.picture || user.picture"
             alt="account photo"
-            height="40"
-            class="rounded"
+            height="100"
+            class="rounded-circle img-shadow"
           />
-          <span class="mx-3 text-success lighten-30">{{ account.name || user.name }}</span>
-        </div>
+         
+        
       </div>
-      <div class="dropdown-menu p-0 list-group w-100" aria-labelledby="authDropdown">
+      <!-- <div class="dropdown-menu p-0 list-group w-100" aria-labelledby="authDropdown">
         <router-link :to="{ name: 'Account' }">
           <div class="list-group-item list-group-item-action hoverable">
             Manage Account
@@ -35,7 +30,7 @@
           <i class="mdi mdi-logout"></i>
           logout
         </div>
-      </div>
+      </div> -->
     </div>
   </span>
 </template>
@@ -49,6 +44,7 @@ export default {
     return {
       user: computed(() => AppState.user),
       account: computed(() => AppState.account),
+      
       async login() {
         AuthService.loginWithPopup()
       },
