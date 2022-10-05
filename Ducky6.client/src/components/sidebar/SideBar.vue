@@ -1,14 +1,20 @@
 <template>
-  <div class="sidebar " :style="{ width: sidebarWidth }">
+  <div class="sidebar" :style="{ width: sidebarWidth }">
     <h1 class="text-shadow titleText pointer">
       <span v-if="collapsed" class="titleText">
-        <div><img src="https://cdn-icons-png.flaticon.com/800/7207/7207387.png" alt="" width="30" height="30" class="rounded"></div>
-      
+        <div>
+          <img
+            src="https://cdn-icons-png.flaticon.com/800/7207/7207387.png"
+            alt=""
+            width="30"
+            height="30"
+            class="rounded"
+          />
+        </div>
       </span>
       <span class="titleText" v-else>Vue Sidebar</span>
-      <span :class="collapsed? 'visually-hidden':''">
-
-        <Login/>
+      <span :class="collapsed ? 'visually-hidden' : ''">
+        <Login />
       </span>
     </h1>
     <div
@@ -19,12 +25,25 @@
           : ''
       "
     >
-      <SideBarLink to="/" icon="mdi mdi-home fs-2" class="text-shadow">Home</SideBarLink>
-      
+      <SideBarLink to="/" icon="mdi mdi-home fs-2" class="text-shadow"
+        >Home</SideBarLink
+      >
+
       <SideBarLink to="/account" icon="mdi mdi-account fs-2" class="text-shadow"
         >Account</SideBarLink
       >
-     
+    </div>
+
+    <div>
+      <button
+      
+        class="btn btn-outline-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#formModal"
+      >
+        <i class="mdi mdi-ticket fs-2"></i>
+      </button>
+      new Event
     </div>
     <span
       class="collapse-icon"
@@ -34,12 +53,20 @@
       <i class="mdi mdi-arrow-left-box fs-2 arrowIcon"></i>
     </span>
   </div>
+  <div>
+<EventForm />
+
+
+  </div>
 </template>
 
 <script>
 import { collapsed, sidebarWidth, toggleSidebar } from './state.js';
 import SideBarLink from './SideBarLink.vue';
-import Login from "../Login.vue";
+import Login from '../Login.vue';
+import Pop from '../../utils/Pop.js';
+import { eventsService } from '../../services/EventsService.js';
+import EventForm from "../EventForm.vue";
 
 export default {
   setup() {
@@ -47,9 +74,17 @@ export default {
       collapsed,
       toggleSidebar,
       sidebarWidth,
+
+      async createEvent() {
+        try {
+          await eventsService.createEvent(editable.value);
+        } catch (error) {
+          Pop.error(error, '[createEvent]');
+        }
+      },
     };
   },
-  components: { SideBarLink, Login },
+  components: { SideBarLink, Login, EventForm },
 };
 </script>
 
@@ -58,11 +93,7 @@ export default {
   --sidebar-bg-color: #5b2f85;
   --sidebar-item-hover: #8738a1;
   --sidebar-item-active: #b682d99d;
-
-
- 
 }
-
 </style>
 
 <style lang="scss" scoped>
@@ -70,8 +101,8 @@ export default {
   color: white;
   background-position: center;
   background-size: cover;
- background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.wallpapermaiden.com%2Fimage%2F2018%2F09%2F13%2Flow-poly-triangles-purple-gradient-24356.png&f=1&nofb=1&ipt=84c87811c5cc5448f2977dea2b9b70d93cd91647bb5a58c69fe52cb3cd72fafa&ipo=images);
-transition: all 1.5s ease;
+  background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.wallpapermaiden.com%2Fimage%2F2018%2F09%2F13%2Flow-poly-triangles-purple-gradient-24356.png&f=1&nofb=1&ipt=84c87811c5cc5448f2977dea2b9b70d93cd91647bb5a58c69fe52cb3cd72fafa&ipo=images);
+  transition: all 1.5s ease;
 
   float: left;
   position: fixed;
@@ -95,15 +126,13 @@ transition: all 1.5s ease;
   color: rgb(236, 224, 224);
   transition: 0.5s linear;
 }
-.arrowIcon:hover{
+.arrowIcon:hover {
   background-color: var(--sidebar-item-hover);
   border-radius: 4px;
   transition: 0.5s linear;
   cursor: pointer;
-  
 }
-.arrowIcon{
-
+.arrowIcon {
   transition: 0.5s linear;
 }
 
@@ -125,15 +154,15 @@ transition: all 1.5s ease;
   transition: 2s ease;
 }
 
-.pointer{
-  cursor:pointer;
+.pointer {
+  cursor: pointer;
 }
 @media screen and (max-width: 860px) {
   .collapse-icon {
     position: relative;
   }
 
-  .sidebar{
+  .sidebar {
     display: none;
   }
   .links {

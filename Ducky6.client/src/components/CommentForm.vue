@@ -3,13 +3,13 @@
 <div class="row">
 <div class="col-md-12">
 <span><h5>Join the conversation</h5></span>
-<form @submit="handleSubmit()">
+<form @submit.prevent="createComment()">
 
   <div class="form-group">
     
   <textarea  placeholder="Tell the People" v-model="editable.body" name="body" id="comment" cols="40" rows="4"  class="rounded bg-dark text-light" ></textarea>
 
-  <button class="btn btn-warning">Post Comment</button>
+  <button type="submit" class="btn btn-warning">Post Comment</button>
   </div>
 
 </form>
@@ -35,7 +35,7 @@ import Pop from "../utils/Pop.js";
 
 export default {
   props: {
-comments:{type: Comment,required:true}
+comment:{type: Object,required:true}
   },
 
 
@@ -45,19 +45,17 @@ comments:{type: Comment,required:true}
  
 const editable = ref({})
 
-watchEffect(() =>{
-  editable.value = {...AppState.comments}
-})
 
     return {
 
 editable,
 
-comments1: computed(() => AppState.comments),
+comments: computed(() => AppState.comments),
 
-async handleSubmit(){
+async createComment(){
   try {
-      await commentsService.addComment(editable.value)
+    
+      await commentsService.createComment({eventId : AppState.activeEvent.id},editable.value)
     } catch (error) {
       Pop.error(error,'[addComment]')
     }

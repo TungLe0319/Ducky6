@@ -11,108 +11,56 @@
       <div class="modal-content bg-dark">
         <div class="modal-body FORM">
           <!-- -------------------SECTION FORM----------------------------------- -->
-          <form @submit.prevent="handleSubmit" class="">
+          <form @submit.prevent="createEvent()" class="">
             <div class="row">
               <div class="col-md-6">
                 <div class="inputBox mt-2">
-                  <input
-                    type="text"
-                  
-                
-                    class=""
-                  />
-                  <span>ProfileName</span>
+                  <input type="text" class="" v-model="editable.name"  />
+                  <span>Name of Event</span>
                 </div>
                 <div class="inputBox my-4">
-                  <input
-                    type="text"
-           
-                 
-                    class=""
-                  />
-                  <span>email</span>
+                  <input type="number" class="" v-model="editable.capacity" />
+                  <span>Capacity</span>
                 </div>
 
                 <div class="inputBox mt-2">
-                  <input
-                    type="url"
-               
-                    placeholder="url..."
-                    class=""
-                  />
-                  <span>profile picture</span>
+                  <input type="text" placeholder="location" class="" v-model="editable.location" />
+                  <span>Location</span>
+                </div>
+                <div class="inputBox mt-2">
+                  <input type="text" placeholder="type" class="" v-model="editable.type" />
+                  <span>Type of Event</span>
                 </div>
               </div>
 
-              <div class="col-md-6 justify-content-center d-flex">
-                <img
-                  src="account.picture"
-                  alt=""
-                  class="img-fluid w-50 forcedImg Img1"
-                />
-              </div>
+             
 
               <div class="col-md-6">
-                <div class="form-group d-flex align-items-center">
-                  <label class="form-check-label mt-2 me-3" for="graduated">
-                    <vs-tooltip
-                      text="Graduated"
-                      position="bottom"
-                      color="primary"
-                    >
-                      <i class="mdi mdi-school fs-2"></i>
-                    </vs-tooltip>
-                  </label>
-
-                  <div class="checkBoxInput">
-                    <input
-                      class="form-check-input checkbox"
-                      type="checkbox"
-                      name="graduated"
-               
-                    />
-                  </div>
-                </div>
+                
                 <div class="inputBox mt-2">
-                  <input
-                    type="text"
-                 
-                   
-                    class=""
-                    min="0"
-                  />
-                  <span>Class</span>
+                  <input type="text" class="" min="9999" v-model="editable.coverImg" />
+                  <span>coverImg</span>
                 </div>
-            
               </div>
               <div class="col-md-6">
                 <div>
-                  <img
-                    src="account.coverImg"
-                    alt=""
-                    class="forcedImg smallerImg mt-2 Img1"
-                  />
+                 IMG HERE MAYBE
                 </div>
                 <div class="mt-3 inputBox">
-                  <input type="url"  class=" " />
-                  <span>CoverImg</span>
+                  <input type="url" class=" " v-model="editable.startDate" />
+                  <span>StartDate</span>
                 </div>
               </div>
             </div>
 
             <div class="inputBox2 mt-2">
-              <textarea
-            
-              
-                class="mt-2"
-                rows="5"
-              ></textarea>
-              <span>Bio</span>
+              <textarea class="mt-2" rows="5" v-model="editable.description"></textarea>
+              <span>Description</span>
             </div>
 
             <div class="my-3">
               <button class="btn btn-success selectable" type="submit">
-                Edit Account 
+               Craete Event
               </button>
             </div>
           </form>
@@ -129,6 +77,7 @@
 import { computed, ref, watchEffect } from 'vue';
 import { AppState } from '../AppState';
 import { accountService } from '../services/AccountService.js';
+import { eventsService } from "../services/EventsService.js";
 import Pop from '../utils/Pop.js';
 export default {
   setup() {
@@ -143,9 +92,9 @@ export default {
 
       account: computed(() => AppState.account),
 
-      async handleSubmit() {
+      async createEvent() {
         try {
-       
+          await eventsService.createEvent(editable.value)
           Pop.success('Account Edit Approved');
         } catch (error) {
           Pop.error(error, '[]');
@@ -211,7 +160,6 @@ export default {
 .inputBox2 textarea {
   width: 100%;
 
- 
   padding: 10px;
   border: 1px solid #92c5f5;
   border-bottom: 3px solid #c4def7;
@@ -263,7 +211,7 @@ export default {
   transition: all 1.5s ease;
   box-shadow: 0.25px 0.25px 10px rgba(243, 236, 236, 0.308);
 }
-.inputBox ::placeholder{
+.inputBox ::placeholder {
   color: #ffffff;
   font-weight: bold;
 }

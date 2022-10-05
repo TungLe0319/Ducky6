@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose';
+import { now, Schema } from 'mongoose';
 
 const ObjectId = Schema.Types.ObjectId;
 
@@ -6,32 +6,33 @@ export const EventSchema = new Schema(
   {
     name: {
       type: String,
-      min: 0,
+    default:'Tung Testing Create ',
       required: true,
     },
 
     description: {
       type: String,
       default: '',
-      minLength: 3,
+   
     },
     coverImg: {
       type: String,
-      default: '',
-      minLength: 3,
+      default: '//thiscatdoesnotexist.com',
+    
     },
     location: {
       type: String,
-      default: '',
-      minLength: 3,
+      default: 'Italy',
+    
     },
     capacity: {
       type: Number,
+      default:'100',
       required: true,
     },
     startDate: {
       type: Date,
-      default: '',
+   
     },
     isCanceled: {
       type: Boolean,
@@ -39,6 +40,7 @@ export const EventSchema = new Schema(
     },
     type: {
       type: String,
+      default:'convention',
       required: true,
       enum: ['convention', 'sport', 'digital', 'concert'],
     },

@@ -1,45 +1,47 @@
 <template>
   <div class="text-center accountPage text-light container-fluid">
   <div class="row">
-<div class="col-md-12">
-My Events!
+<div class="col-md-2 " v-for="c in myEvents" :key="c.id" >
+<EventCard   :event="c.event"  />
 
 </div>
 
   </div>
-    <button data-bs-toggle="modal" data-bs-target="#formModal" class="btn btn-primary button-50">EDIT ACCOUNT</button>
+   
     
   </div>
-  <AccountForm />
+
 </template>
 
 <script>
-import AccountForm from '../components/AccountForm.vue';
+
 import { computed, onMounted } from 'vue';
 import { AppState } from '../AppState';
 import Pop from "../utils/Pop.js";
 import { accountService } from "../services/AccountService.js";
+import EventCard from "../components/EventCard.vue";
 
 export default {
   setup() {
 
-async function getMyTickets(){
+async function getMyEvents(){
   try {
-      await accountService.getMyTickets()
+      await accountService.getMyEvents()
     } catch (error) {
       Pop.error(error,'[getMyEVents]')
     }
 }
 
 onMounted(()=>{
-
+getMyEvents()
 })
 
     return {
       account: computed(() => AppState.account),
+      myEvents: computed(() => AppState.myEvents)
     };
   },
-  components: { AccountForm },
+  components: {  EventCard },
 };
 </script>
 ß

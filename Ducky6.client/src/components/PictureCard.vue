@@ -1,6 +1,6 @@
 <template>
   <div class="ticket-holders">
-<img :src="account.picture" alt="" width="50" height="50">
+<img :src="picture.picture" alt="" width="50" height="50">
 
 
   </div>
@@ -11,7 +11,7 @@ import { Account } from "../models/Account.js";
 
 export default {
   props: {
-account:{type: Account,required:true}
+picture:{type: Object,required:true}
   },
 
   setup(props) {

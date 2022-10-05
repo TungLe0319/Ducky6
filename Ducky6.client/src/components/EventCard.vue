@@ -32,7 +32,7 @@ import EventCreator from './EventCreator.vue';
 
 export default {
   props: {
-    event: { type: Event, required: true },
+    event: { type: Object, required: true },
   },
   setup(props) {
     const bgs = [

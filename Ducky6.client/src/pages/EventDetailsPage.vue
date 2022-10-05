@@ -1,16 +1,13 @@
 <template>
   <div class="Event-Details container-fluid" v-if="event">
     <div class="row">
-      <div class="col-md-12"  >
+      <div class="col-md-12">
         <EventDetails :event="event" :account="account" />
       </div>
-      <div class="col-md-12">
-
-
-      </div>
+      <div class="col-md-12"></div>
 
       <div class="col-md-12">
-        <CommentForm />
+        <CommentsBox :comment="comments" />
       </div>
     </div>
   </div>
@@ -30,6 +27,8 @@ import { commentsService } from '../services/CommentsService.js';
 
 import { ticketsService } from '../services/TicketsService.js';
 import CommentForm from '../components/CommentForm.vue';
+import CommentsBox from '../components/CommentsBox.vue';
+import { AuthService } from '../services/AuthService.js';
 
 export default {
   setup() {
@@ -63,7 +62,7 @@ export default {
     onMounted(() => {
       getEventDetailsById();
       getCommentsByEventId();
-      getComments();
+      // getComments();
     });
 
     return {
@@ -71,17 +70,23 @@ export default {
       event: computed(() => AppState.activeEvent),
       comments: computed(() => AppState.comments),
       account: computed(() => AppState.account),
+      profiles: computed(() => AppState.account),
 
-      async createTicket() {
+    
+      async addComment() {
         try {
-          await ticketsService.createTicket();
+        
+          await commentsService.addComment({eventId: AppState.activeEvent.id || route.params.id});
+          Pop.success('Posted Comment');
         } catch (error) {
-          Pop.error(error, '[createTicket]');
+          Pop.error(error, '[addComment]');
         }
       },
+
+
     };
   },
-  components: { EventDetails, CommentForm },
+  components: { EventDetails, CommentForm, CommentsBox },
 };
 </script>
 

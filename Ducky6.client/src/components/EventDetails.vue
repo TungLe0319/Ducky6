@@ -3,7 +3,7 @@
     <div
       class="row bg-secondary my-2 flex-wrap detailsBg justify-content-around"
     >
-      <div class="text-end"><i class="mdi mdi-more"></i></div>
+      <div class="text-end"><i @click.prevent="removeEvent()" class="mdi mdi-more fs-2 text-danger"></i></div>
       <div class="col-md-3 p-4">
         <img
           :src="event.coverImg"
@@ -31,42 +31,82 @@
 
         <div class="d-flex justify-content-between">
           <p>{{ event.capacity }} spots left</p>
-          <button class="btn btn-warning">
+          <button class="btn btn-warning" @click="createTicket()">
             Attend <i class="mdi mdi-account fs-2"></i>
           </button>
         </div>
       </div>
+      <div class="p-2 d-flex">
+
+<img :src="event.creator.picture" alt="" class="img-shadow picture ">
+<span><h6>{{event.creator.name}}</h6></span>
+      </div>
     </div>
     <div class="row">
       <span class="text-shadow"><h6>See Whos Attending:</h6></span>
-      <div class="col-md-1 bg-primary" >
-      
-      </div>
+      <div class="col-md-1 bg-primary"></div>
     </div>
   </div>
 </template>
 
 <script>
-import { computed } from '@vue/reactivity';
+import { computed, ref } from '@vue/reactivity';
+
 import { onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { AppState } from '../AppState.js';
 import { Event } from '../models/Event.js';
+import { AuthService } from "../services/AuthService.js";
 import { eventsService } from '../services/EventsService.js';
+import { ticketsService } from '../services/TicketsService.js';
 import Pop from '../utils/Pop.js';
 
-import TicketHolders from './TicketHolders.vue';
+
 
 export default {
   props: {
-    event: { type: Event, required: true },
+    event: { type: Object, required: true },
   },
-  setup() {
+  setup(props) {
+    const route = useRoute();
+    const editable = ref({});
+    const router= useRouter()
     return {
+      route,
+      editable,
       comments: computed(() => AppState.comments),
-      account: computed(() => AppState.account),
+      creator: computed(() => AppState.account),
+
+      async createTicket() {
+        try {
+          if (!AppState.account.id) {
+            return AuthService.loginWithRedirect()
+          }
+          await ticketsService.createTicket({eventId: AppState.activeEvent.id || route.params.id});
+          Pop.success('Thank you for Purchasing a Ticket!')
+        } catch (error) {
+          Pop.error(error, '[createTicket]');
+        }
+      },
+
+
+async removeEvent(){
+  try {
+    const yes = await Pop.confirm()
+          if (!yes) {
+            return
+          }
+      await eventsService.removeEvent(AppState.activeEvent.id)
+      router.push('/')
+      Pop.success('Event Cancelled....')
+    } catch (error) {
+      Pop.error(error,'[removeEvent]')
+    }
+}
+
     };
   },
-  components: {  TicketHolders },
+  components: { },
 };
 </script>
 
@@ -96,5 +136,13 @@ export default {
   background-image: url(https://wallpapercave.com/wp/wp7196474.jpg);
   background-position: center;
   background-size: cover;
+}
+
+.picture{
+   height: 60px;
+  width: 60px;
+  object-fit: cover;
+  border: 10px solid rgba(255, 255, 255, 0.086);
+  backdrop-filter: blur(5px);
 }
 </style>

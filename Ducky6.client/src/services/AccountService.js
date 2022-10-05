@@ -1,4 +1,5 @@
 import { AppState } from '../AppState'
+import { Event } from "../models/Event.js"
 import { logger } from '../utils/Logger'
 import { api } from './AxiosService'
 
@@ -7,18 +8,19 @@ class AccountService {
     try {
       const res = await api.get('/account')
       AppState.account = res.data
-    } catch (err) {
-      logger.error('HAVE YOU STARTED YOUR SERVER YET???', err)
+    } catch (error) {
+      logger.error('HAVE YOU STARTED YOUR SERVER YET???', error)
     }
   }
 
 
-async getMyTickets(){
+async getMyEvents(){
 try {
   const res = await api.get('/account/tickets')
   console.log(res.data);
+  AppState.myEvents = res.data
 } catch (error) {
-  logger.error('Get My EVents?!?',err)
+  console.error('Get My EVents?!?',error)
 }
 
 }
