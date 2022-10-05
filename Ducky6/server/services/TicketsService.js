@@ -65,12 +65,12 @@ class TicketsService {
   async getTicketByAccountId(accountId) {
     const tickets = await dbContext.Tickets.find({ accountId })
       .populate('profile', 'name picture')
-      .populate('event', 'name coverImg');
+      .populate('event');
     return tickets;
   }
 
   async getTicketById(id){
-    const ticket = await dbContext.Tickets.findById(id).populate('profile','name picture').populate('event', 'name coverImg')
+    const ticket = await dbContext.Tickets.findById(id).populate('profile','name picture').populate('event')
     return ticket
   }
 }

@@ -3,7 +3,7 @@
     <div
       class="row bg-secondary my-2 flex-wrap detailsBg justify-content-around"
     >
-      <div class="text-end"><i @click.prevent="removeEvent()" class="mdi mdi-more fs-2 text-danger"></i></div>
+      <div v-if="event.creator.id ==  account.id" class="text-end"><i @click.prevent="removeEvent()" class="mdi mdi-more fs-2 text-danger"></i></div>
       <div class="col-md-3 p-4">
         <img
           :src="event.coverImg"
@@ -76,6 +76,7 @@ export default {
       editable,
       comments: computed(() => AppState.comments),
       creator: computed(() => AppState.account),
+      account: computed(() => AppState.user),
 
       async createTicket() {
         try {

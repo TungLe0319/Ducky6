@@ -18,19 +18,19 @@
             class="rounded-circle img-shadow"
           />
          
-        
+         <div class="list-group-item list-group-item-action hoverable text-danger" @click="logout">
+          <i class="mdi mdi-logout"></i>
+          logout
+        </div>
       </div>
-      <!-- <div class="dropdown-menu p-0 list-group w-100" aria-labelledby="authDropdown">
+      <div class="dropdown-menu p-0 list-group w-100" aria-labelledby="authDropdown">
         <router-link :to="{ name: 'Account' }">
           <div class="list-group-item list-group-item-action hoverable">
             Manage Account
           </div>
         </router-link>
-        <div class="list-group-item list-group-item-action hoverable text-danger" @click="logout">
-          <i class="mdi mdi-logout"></i>
-          logout
-        </div>
-      </div> -->
+       
+      </div>
     </div>
   </span>
 </template>

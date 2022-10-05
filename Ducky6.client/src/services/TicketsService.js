@@ -11,9 +11,9 @@ class TicketsService {
  
   }
 
-async removeTicket(ticketHolderId){
-  await api.delete(`api/tickets/${ticketHolderId}`)
-AppState.tickets = AppState.tickets.filter(t => t.id != ticketHolderId)
+async removeTicket(ticketId){
+  await api.delete(`api/tickets/${ticketId}`)
+AppState.tickets = AppState.tickets.filter(t => t.id != ticketId)
 }
 
 }
