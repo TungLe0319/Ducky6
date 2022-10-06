@@ -19,7 +19,7 @@ export class TicketsController extends BaseController {
       const ticket = await ticketsService.createTicket(req.body);
       res.send(ticket);
     } catch (error) {
-      next(error);
+      next(error,'TUNG HI FROM SERVER CONTROLLER TICKETS');
     }
   }
 

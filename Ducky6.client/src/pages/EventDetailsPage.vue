@@ -4,10 +4,17 @@
       <div class="col-md-12">
         <EventDetails :event="event" :account="account" />
       </div>
-      <div class="col-md-12"></div>
+      <div class="col-md-12 bg-danger"  >
+<TickerHolders  v-for="t in tickets" :ticket="t" :key="t.id" />
+      </div>
 
-      <div class="col-md-12">
-        <CommentsBox :comment="comments" />
+      <div class="col-md-12 ">
+       <!-- <CommentsBox  :comment="comments  " :profile="profiles" /> -->
+       <CommentForm/>
+
+      </div>
+      <div class="container px-5 "  >
+        <CommentCreatorCard :comment="c" v-for=" c in comments" />
       </div>
     </div>
   </div>
@@ -27,8 +34,11 @@ import { commentsService } from '../services/CommentsService.js';
 
 import { ticketsService } from '../services/TicketsService.js';
 import CommentForm from '../components/CommentForm.vue';
-import CommentsBox from '../components/CommentsBox.vue';
+
 import { AuthService } from '../services/AuthService.js';
+import CommentCreatorCard from "../components/CommentCreatorCard.vue";
+import TickerHolders from "../components/TickerHolders.vue";
+
 
 export default {
   setup() {
@@ -51,17 +61,28 @@ export default {
       }
     }
 
-    async function getComments() {
-      try {
-        await commentsService.getComments();
-      } catch (error) {
-        Pop.error(error, '[getComments]');
-      }
+
+async function getTicketHoldersByEventId(){
+  try {
+      await  eventsService.getTicketsByEventId(route.params.eventId)
+    } catch (error) {
+      Pop.error(error,'[getTicketHoldersByEventId]')
     }
+}
+
+
+    // async function getComments() {
+    //   try {
+    //     await commentsService.getComments();
+    //   } catch (error) {
+    //     Pop.error(error, '[getComments]');
+    //   }
+    // }
 
     onMounted(() => {
       getEventDetailsById();
       getCommentsByEventId();
+      getTicketHoldersByEventId()
       // getComments();
     });
 
@@ -70,8 +91,8 @@ export default {
       event: computed(() => AppState.activeEvent),
       comments: computed(() => AppState.comments),
       account: computed(() => AppState.account),
-      profiles: computed(() => AppState.account),
-
+   
+tickets : computed(() => AppState.tickets),
     
       async addComment() {
         try {
@@ -86,7 +107,7 @@ export default {
 
     };
   },
-  components: { EventDetails, CommentForm, CommentsBox },
+  components: { EventDetails, CommentForm, CommentCreatorCard, TickerHolders,  },
 };
 </script>
 

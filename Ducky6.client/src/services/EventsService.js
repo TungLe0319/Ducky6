@@ -1,6 +1,8 @@
 import { AppState } from '../AppState.js';
+import { Account } from "../models/Account.js";
 import { Comment } from '../models/Comment.js';
 import { Event } from '../models/Event.js';
+import { Ticket } from "../models/Ticket.js";
 import { api } from './AxiosService.js';
 
 class EventsService {
@@ -40,10 +42,15 @@ AppState.events = AppState.events.filter(e => e.id != eventId)
   async getCommentsByEventId(eventId) {
     const res = await api.get(`api/events/${eventId}/comments`);
     console.log(res.data);
+    AppState.comments = res.data.map(c => new Comment(c))
   }
 
   async getTicketsByEventId(eventId) {
+const res = await api.get(`api/events/${eventId}/tickets`)
+console.log(res.data);
 
+AppState.tickets = res.data.map(t => new Ticket(t))
+console.log(AppState.tickets);
   }
 
   async createTicket() {

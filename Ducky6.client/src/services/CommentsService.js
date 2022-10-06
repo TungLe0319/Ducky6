@@ -10,9 +10,9 @@ let leftOverComments = AppState.comments.filter(c => c.id != id)
 AppState.comments = leftOverComments
 }
 
-async createComment(eventData,formData){
+async createComment(formData){
 
-const res = await api.post(`api/comments`,eventData,formData)
+const res = await api.post(`api/comments`,formData)
 const comment = res.data
 console.log(res.data);
 AppState.comments.push(comment)

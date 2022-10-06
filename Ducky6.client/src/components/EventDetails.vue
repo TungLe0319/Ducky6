@@ -3,7 +3,12 @@
     <div
       class="row bg-secondary my-2 flex-wrap detailsBg justify-content-around"
     >
-      <div v-if="event.creator.id ==  account.id" class="text-end"><i @click.prevent="removeEvent()" class="mdi mdi-more fs-2 text-danger"></i></div>
+      <div v-if="event.creator.id == account.id" class="text-end">
+        <i
+          @click.prevent="removeEvent()"
+          class="mdi mdi-more fs-2 text-danger"
+        ></i>
+      </div>
       <div class="col-md-3 p-4">
         <img
           :src="event.coverImg"
@@ -12,10 +17,11 @@
         />
       </div>
 
-      <div class="col-md-8 flex-wrap description mb-3 elevation-5">
+      <div class="col-md-8 flex-wrap description mb-3 elevation-5 d-flex flex-column justify-content-around">
         <div class="d-flex justify-content-between text-shadow">
           <p>{{ event.name }}</p>
           <p>{{ new Date(event.startDate).toDateString() }}</p>
+
         </div>
         <div class="d-flex justify-content-between text-shadow">
           <p class="text-primary">{{ event.location }}</p>
@@ -29,17 +35,22 @@
           </p>
         </div>
 
-        <div class="d-flex justify-content-between">
+        <div class="d-flex justify-content-between" v-if="event">
           <p>{{ event.capacity }} spots left</p>
-          <button class="btn btn-warning" @click="createTicket()">
+          <button    class="btn " @click="createTicket()">
             Attend <i class="mdi mdi-account fs-2"></i>
           </button>
         </div>
+        <div class="d-flex justify-content-end" v-else>
+<button class="btn btn-danger" disabled> Event Creator</button>
+
+        </div>
       </div>
       <div class="p-2 d-flex">
-
-<img :src="event.creator.picture" alt="" class="img-shadow picture ">
-<span><h6>{{event.creator.name}}</h6></span>
+        <img :src="event.creator.picture" alt="" class="img-shadow picture" />
+        <span
+          ><h6>{{ event.creator.name }}</h6></span
+        >
       </div>
     </div>
     <div class="row">
@@ -56,12 +67,10 @@ import { onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { AppState } from '../AppState.js';
 import { Event } from '../models/Event.js';
-import { AuthService } from "../services/AuthService.js";
+import { AuthService } from '../services/AuthService.js';
 import { eventsService } from '../services/EventsService.js';
 import { ticketsService } from '../services/TicketsService.js';
 import Pop from '../utils/Pop.js';
-
-
 
 export default {
   props: {
@@ -70,44 +79,45 @@ export default {
   setup(props) {
     const route = useRoute();
     const editable = ref({});
-    const router= useRouter()
+    const router = useRouter();
     return {
       route,
       editable,
       comments: computed(() => AppState.comments),
       creator: computed(() => AppState.account),
       account: computed(() => AppState.user),
+    
 
       async createTicket() {
         try {
           if (!AppState.account.id) {
-            return AuthService.loginWithRedirect()
+            return AuthService.loginWithRedirect();
           }
-          await ticketsService.createTicket({eventId: AppState.activeEvent.id || route.params.id});
-          Pop.success('Thank you for Purchasing a Ticket!')
+          await ticketsService.createTicket({
+            eventId: AppState.activeEvent.id || route.params.id,
+          });
+          Pop.success('Thank you for Purchasing a Ticket!');
         } catch (error) {
-          Pop.error(error, '[createTicket]');
+          Pop.error( 'You Can Only Have One Ticket To An Event.');
         }
       },
 
-
-async removeEvent(){
-  try {
-    const yes = await Pop.confirm()
+      async removeEvent() {
+        try {
+          const yes = await Pop.confirm();
           if (!yes) {
-            return
+            return;
           }
-      await eventsService.removeEvent(AppState.activeEvent.id)
-      router.push('/')
-      Pop.success('Event Cancelled....')
-    } catch (error) {
-      Pop.error(error,'[removeEvent]')
-    }
-}
-
+          await eventsService.removeEvent(AppState.activeEvent.id);
+          router.push('/');
+          Pop.success('Event Cancelled....');
+        } catch (error) {
+          Pop.error(error, '[removeEvent]');
+        }
+      },
     };
   },
-  components: { },
+  components: {},
 };
 </script>
 
@@ -139,8 +149,8 @@ async removeEvent(){
   background-size: cover;
 }
 
-.picture{
-   height: 60px;
+.picture {
+  height: 60px;
   width: 60px;
   object-fit: cover;
   border: 10px solid rgba(255, 255, 255, 0.086);

@@ -56,13 +56,7 @@ export class EventsController extends BaseController {
   }
 
 
-  async getEventThatIsNotCancelledById(req,res,next){
-try {
-  
-} catch (error) {
-  next(error)
-}
-  }
+
   async getTicketsByEventId(req, res, next) {
     try {
       const tickets = await ticketsService.getTicketByEventId(req.params.id);

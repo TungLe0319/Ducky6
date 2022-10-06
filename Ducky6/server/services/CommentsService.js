@@ -19,6 +19,7 @@ class CommentsService {
 
     const comment = await dbContext.Comments.create(commentData);
     await comment.populate('creator', 'name picture');
+    await comment.populate('event');
     return comment;
   }
 
@@ -27,7 +28,7 @@ class CommentsService {
     const comments = await dbContext.Comments.find({ eventId }).populate(
       'creator',
       'name picture'
-    );
+    ).populate('event');
     return comments;
   }
 
@@ -35,7 +36,7 @@ class CommentsService {
     const comment = await dbContext.Comments.findById(commentId).populate(
       'creator',
       ' name picture'
-    );
+    ).populate('event');
     if (!comment) {
       throw new BadRequest('Invalid of Bad Comment Id');
     }
@@ -46,7 +47,7 @@ class CommentsService {
     const comment = await dbContext.Comments.find().populate(
       'creator',
       ' name picture'
-    );
+    ).populate('event');
     return comment;
   }
 }
