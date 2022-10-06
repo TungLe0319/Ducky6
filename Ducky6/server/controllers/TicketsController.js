@@ -30,7 +30,7 @@ export class TicketsController extends BaseController {
         req.userInfo.id
       );
 
-      res.send('Successfully Removed', ticket);
+      res.send('Successfully Removed');
     } catch (error) {
       next(error);
     }

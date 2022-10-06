@@ -1,12 +1,12 @@
 <template>
   <div class="event-details container-fluid">
     <div
-      class="row bg-secondary my-2 flex-wrap detailsBg justify-content-around"
+      class="row bg-secondary my-2 flex-wrap detailsBg box-shadow2 justify-content-around"
     >
       <div v-if="event.creator.id == account.id" class="text-end">
         <i
           @click.prevent="removeEvent()"
-          class="mdi mdi-more fs-2 text-danger"
+          class="mdi mdi-cancel fs-1 img-shadow  cancelBtn"
         ></i>
       </div>
       <div class="col-md-3 p-4">
@@ -17,11 +17,12 @@
         />
       </div>
 
-      <div class="col-md-8 flex-wrap description mb-3 elevation-5 d-flex flex-column justify-content-around">
+      <div
+        class="col-md-8 flex-wrap description mb-3 elevation-5 d-flex flex-column justify-content-around"
+      >
         <div class="d-flex justify-content-between text-shadow">
           <p>{{ event.name }}</p>
           <p>{{ new Date(event.startDate).toDateString() }}</p>
-
         </div>
         <div class="d-flex justify-content-between text-shadow">
           <p class="text-primary">{{ event.location }}</p>
@@ -35,22 +36,32 @@
           </p>
         </div>
 
-        <div class="d-flex justify-content-between" v-if="event">
+        <div class="d-flex justify-content-between" v-if="event.capacity > 0">
           <p>{{ event.capacity }} spots left</p>
-          <button    class="btn " @click="createTicket()">
+          <button class="btn btn-warning" @click="createTicket()">
             Attend <i class="mdi mdi-account fs-2"></i>
           </button>
         </div>
-        <div class="d-flex justify-content-end" v-else>
-<button class="btn btn-danger" disabled> Event Creator</button>
-
+        <div class="d-flex justify-content-between" v-else>
+          <p>{{ event.capacity }}</p>
+          <button
+            v-if="hasTicket"
+            class="btn btn-danger"
+            @click="removeTicket()"
+          >
+            removeTicket
+          </button>
+          <button v-else class="btn btn-primary">Sold Out</button>
         </div>
       </div>
       <div class="p-2 d-flex">
-        <img :src="event.creator.picture" alt="" class="img-shadow picture" />
-        <span
-          ><h6>{{ event.creator.name }}</h6></span
-        >
+        <img
+          :src="event.creator.picture"
+          alt=""
+          class="img-shadow picture rounded-circle"
+          :title="event.creator.name"
+        />
+        <span class="d-flex justify-content-end align-items-end ms-3">  <small>Event Creator</small> </span>
       </div>
     </div>
     <div class="row">
@@ -86,21 +97,38 @@ export default {
       comments: computed(() => AppState.comments),
       creator: computed(() => AppState.account),
       account: computed(() => AppState.user),
-    
+      hasTicket: computed(() =>
+        AppState.tickets.find((t) => (t.accountId == AppState.account.id))
+      ),
 
       async createTicket() {
         try {
           if (!AppState.account.id) {
             return AuthService.loginWithRedirect();
           }
+          if (this.hasTicket) {
+            Pop.error('You Already Have One');
+            return;
+          }
           await ticketsService.createTicket({
             eventId: AppState.activeEvent.id || route.params.id,
           });
           Pop.success('Thank you for Purchasing a Ticket!');
         } catch (error) {
-          Pop.error( 'You Can Only Have One Ticket To An Event.');
+          Pop.error('You Can Only Have One Ticket To An Event.');
         }
       },
+
+async removeTicket(){
+try {
+
+    await  ticketsService.removeTicket(this.hasTicket.id)
+  } catch (error) {
+    Pop.error(error,'[remove Ticket]')
+  }
+},
+
+
 
       async removeEvent() {
         try {
@@ -155,5 +183,16 @@ export default {
   object-fit: cover;
   border: 10px solid rgba(255, 255, 255, 0.086);
   backdrop-filter: blur(5px);
+}
+
+.cancelBtn{
+  cursor: pointer;
+
+}
+
+.cancelBtn:hover{
+transform: scale(1.14);
+color: red;
+transition:  0.75s ease;
 }
 </style>

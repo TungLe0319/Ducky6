@@ -1,8 +1,8 @@
 <template>
-  <div class="ticket-holders ">
+  <div class="ticket-holders  p-2">
 
 
-   <img :src="ticket.profile.picture" alt="" class="forcedImg img-shadow rounded-circle" :title="ticket.profile.name">
+   <img :src="ticket.profile.picture" alt="" class="forcedImg img-shadow rounded-circle" :title="ticket.profile.name" >
 
   </div>
 </template>
@@ -30,9 +30,11 @@ export default {
   /* Second Color  in text-shadow is the blur */
 }
 .forcedImg {
-  height:75px;
-  width:75px;
+  height:50px;
+  width:50px;
   object-fit: cover;
   
 }
+
+
 </style>

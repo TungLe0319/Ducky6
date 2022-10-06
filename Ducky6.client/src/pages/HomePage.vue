@@ -1,11 +1,11 @@
 <template>
   <div class="container-fluid mt-5">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12 ">
         <HomePageBanner />
       </div>
       <div class="col-md-12">
-        <div class="bg-danger p-2 rounded">
+        <div class="bg-secondary p-2 rounded mt-3 box-shadow2">
           <input
             type="text"
             class="form-control"
@@ -13,12 +13,12 @@
             v-model="editable"
           />
         </div>
-        <div class="d-flex justify-content-around my-3">
+        <div class="d-flex justify-content-around my-3 bg-secondary p-2 rounded box-shadow2">
           <button @click="getEventsByType('')" class="btn btn-outline-warning">
             All
           </button>
           <button
-            @click="getEventsByType('concert')"
+            @click="getEventsByType('concert') "
             class="btn btn-outline-warning"
           >
             Concert
@@ -45,9 +45,9 @@
       </div>
     </div>
 
-    <div class="row scrollMe">
-      <div class="col-md-3" v-for="e in events" :key="e.id">
-        <EventCard :event="e" />
+    <div class="row scrollMe" >
+      <div class="col-md-3 animate__flipInY animate__animated" v-for="e in events" :key="e.id">
+        <EventCard :event="e" class="" />
       </div>
     </div>
   </div>
@@ -80,9 +80,10 @@ export default {
       editable,
       events: computed(() => AppState.events.filter(a => a.name.toUpperCase().includes(editable.value.toUpperCase()))),
 
-      async getEventsByType(type) {
+      async getEventsByType(type,event) {
         try {
           await eventsService.getEvents(type);
+       
         } catch (error) {
           Pop.error(error, '[GetEventsByType]');
         }

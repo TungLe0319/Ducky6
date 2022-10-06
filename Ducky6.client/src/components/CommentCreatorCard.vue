@@ -1,30 +1,52 @@
 <template>
-  <div class="ticket-holders d-flex bg-secondary p-2">
+  <div class="ticket-holders d-flex  p-2  ">
     
+<div>
 
-      <img  :src="comment.creator.picture" alt="" width="50" height="50" class="rounded p-1">
-    
+  <img  :src="comment.creator.picture" alt="" width="75" height="75" class="rounded-circle p-1">
+</div>
+  <div class=" ms-3 commentBodyBg text-dark card p-2 flex-column d-flex justify-content-center w-100 box-shadow2">
+    <p>  <b class="ps-3">{{comment.creator.name}} {{}}   </b></p>
+    <p class="ps-3">{{comment.body}} </p>
+  </div>  
 
 
-<p>{{comment.body}}</p>
-
+<div v-if="creator"><button @click="removeComment()" class="btn"> <i class="mdi mdi-trash-can fs-3 text-light"></i></button></div>
 
   </div>
 </template>
 
 <script>
+import { computed } from "@vue/reactivity";
+import { AppState } from "../AppState.js";
 import { Account } from "../models/Account.js";
+import { Comment } from "../models/Comment.js";
+import { commentsService } from "../services/CommentsService.js";
+import Pop from "../utils/Pop.js";
 
 export default {
   props: {
 
-comment:{type:Object,required:true}
+comment:{type:Comment,required:true}
+
   },
+
+
 
   setup(props) {
 
-    return {
 
+
+    return {
+// Attending : computed()
+creator:computed(()=> props.comment.creator.id == AppState.account.id),
+async removeComment(){
+  try {
+      await commentsService.removeComment(props.comment.id)
+    } catch (error) {
+      Pop.error(error,'[deleteComment]')
+    }
+}
     };
   },
 };
@@ -45,5 +67,8 @@ comment:{type:Object,required:true}
   object-fit: cover;
 }
 
+.commentBodyBg{
+  background-color: #e2f9ff;
+}
 
 </style>

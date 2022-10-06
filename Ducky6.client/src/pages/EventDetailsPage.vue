@@ -1,20 +1,19 @@
 <template>
   <div class="Event-Details container-fluid" v-if="event">
-    <div class="row">
-      <div class="col-md-12">
+    <div class="row justify-content-center">
+      <div class="col-md-11 animate__flipInY animate__animated">
         <EventDetails :event="event" :account="account" />
       </div>
-      <div class="col-md-12 bg-danger"  >
-<TickerHolders  v-for="t in tickets" :ticket="t" :key="t.id" />
+      <div class="col-md-10 bg-secondary d-flex box-shadow2">
+        <TickerHolders v-for="t in tickets" :ticket="t" :key="t.id" />
       </div>
 
-      <div class="col-md-12 ">
-       <!-- <CommentsBox  :comment="comments  " :profile="profiles" /> -->
-       <CommentForm/>
-
+      <div class="col-md-10 my-3">
+        <!-- <CommentsBox  :comment="comments  " :profile="profiles" /> -->
+        <CommentForm />
       </div>
-      <div class="container px-5 "  >
-        <CommentCreatorCard :comment="c" v-for=" c in comments" />
+      <div class="col-md-8 px-5 bg-secondary box-shadow2 ">
+        <CommentCreatorCard :comment="c" v-for="c in comments" class="animate__animated animate__fadeInBottomLeft commentBox"/>
       </div>
     </div>
   </div>
@@ -22,23 +21,16 @@
 
 <script>
 import { computed } from '@vue/reactivity';
-
 import { onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { AppState } from '../AppState.js';
 import EventDetails from '../components/EventDetails.vue';
 import { eventsService } from '../services/EventsService.js';
 import Pop from '../utils/Pop.js';
-
 import { commentsService } from '../services/CommentsService.js';
-
-import { ticketsService } from '../services/TicketsService.js';
 import CommentForm from '../components/CommentForm.vue';
-
-import { AuthService } from '../services/AuthService.js';
-import CommentCreatorCard from "../components/CommentCreatorCard.vue";
-import TickerHolders from "../components/TickerHolders.vue";
-
+import CommentCreatorCard from '../components/CommentCreatorCard.vue';
+import TickerHolders from '../components/TickerHolders.vue';
 
 export default {
   setup() {
@@ -61,15 +53,13 @@ export default {
       }
     }
 
-
-async function getTicketHoldersByEventId(){
-  try {
-      await  eventsService.getTicketsByEventId(route.params.eventId)
-    } catch (error) {
-      Pop.error(error,'[getTicketHoldersByEventId]')
+    async function getTicketHoldersByEventId() {
+      try {
+        await eventsService.getTicketsByEventId(route.params.eventId);
+      } catch (error) {
+        Pop.error(error, '[getTicketHoldersByEventId]');
+      }
     }
-}
-
 
     // async function getComments() {
     //   try {
@@ -82,7 +72,7 @@ async function getTicketHoldersByEventId(){
     onMounted(() => {
       getEventDetailsById();
       getCommentsByEventId();
-      getTicketHoldersByEventId()
+      getTicketHoldersByEventId();
       // getComments();
     });
 
@@ -91,23 +81,13 @@ async function getTicketHoldersByEventId(){
       event: computed(() => AppState.activeEvent),
       comments: computed(() => AppState.comments),
       account: computed(() => AppState.account),
-   
-tickets : computed(() => AppState.tickets),
-    
-      async addComment() {
-        try {
-        
-          await commentsService.addComment({eventId: AppState.activeEvent.id || route.params.id});
-          Pop.success('Posted Comment');
-        } catch (error) {
-          Pop.error(error, '[addComment]');
-        }
-      },
 
+      tickets: computed(() => AppState.tickets),
 
+  
     };
   },
-  components: { EventDetails, CommentForm, CommentCreatorCard, TickerHolders,  },
+  components: { EventDetails, CommentForm, CommentCreatorCard, TickerHolders },
 };
 </script>
 
@@ -123,5 +103,9 @@ tickets : computed(() => AppState.tickets),
   height: 300px;
   width: 300px;
   object-fit: cover;
+}
+
+.commentBox{
+  transition: all 1s ease;
 }
 </style>

@@ -5,7 +5,7 @@
       class="event-Card elevation-5 card my-3 mx-2 border-3 border d-flex flex-column justify-content-end"
       :style="{ backgroundImage: `url(${event?.coverImg})` }"
     >
-      <div class="p-4"></div>
+     
       <div class="p-2 cardBody text-light text-shadow">
         <span class=""
           ><h5>{{ event.name }}</h5></span
@@ -19,6 +19,20 @@
         <span class="">
           <p class="text-success">{{ event.capacity }} spots left</p>
         </span>
+         <div class="text-end">
+        <i class="mdi mdi-chip fs-4 text-shadow" v-if="event.type=='digital'" title="Digital">
+
+        </i>
+        <i class="mdi mdi-music  fs-4 text-shadow" v-else-if="event.type=='concert'" title="Concert">
+
+        </i>
+        <i class="mdi mdi-account-group  fs-4 text-shadow" v-else-if="event.type=='convention'" title="Convention">
+
+        </i>
+        <i class="mdi mdi-football fs-4 text-shadow" v-else-if="event.type=='sport'" title="Sport">
+
+        </i>
+      </div>
       </div>
     </div>
   </router-link>

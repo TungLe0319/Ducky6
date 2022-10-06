@@ -34,16 +34,16 @@
       >
     </div>
 
-    <div>
+    <div class="text-center">
       <button
       
-        class="btn btn-outline-primary"
+        class="btn p-0 "
         data-bs-toggle="modal"
         data-bs-target="#formModal"
       >
-        <i class="mdi mdi-ticket fs-2"></i>
+        <i class="mdi mdi-ticket  text-shadow "  :class="collapsed? 'fs-4 flex-column justify-content-center d-flex align-items-center ':'fs-1 '" ></i>
       </button>
-      new Event
+      <p v-if="!collapsed" class="text-shadow">New Event</p>
     </div>
     <span
       class="collapse-icon"

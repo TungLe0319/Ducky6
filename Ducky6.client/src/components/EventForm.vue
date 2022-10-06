@@ -15,7 +15,7 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="inputBox mt-2">
-                  <input type="text" class="" v-model="editable.name"  />
+                  <input type="text" class="" v-model="editable.name" />
                   <span>Name of Event</span>
                 </div>
                 <div class="inputBox my-4">
@@ -24,43 +24,73 @@
                 </div>
 
                 <div class="inputBox mt-2">
-                  <input type="text" placeholder="location" class="" v-model="editable.location" />
+                  <input
+                    type="text"
+                    placeholder="location"
+                    class=""
+                    v-model="editable.location"
+                  />
                   <span>Location</span>
                 </div>
-                <div class="inputBox mt-2">
-                  <input type="text" placeholder="type" class="" v-model="editable.type" />
+                <!-- <div class="inputBox mt-2">
+                  <input
+                    type="text"
+                    placeholder="type"
+                    class=""
+                    v-model="editable.type"
+                  />
                   <span>Type of Event</span>
-                </div>
+                </div> -->
+                <div class="input-group inputBox mb-3">
+  <label class="input-group-text" for="inputGroupSelect01">Type Of Event</label>
+  <select class="form-select " id="inputGroupSelect01"  v-model="editable.type">
+    
+    <option selected="convention">Convention</option>
+    <option  value="concert">Concert</option>
+    <option value="digital">Digital</option>
+    <option value="sport">Sport</option>
+  </select>
+</div>
+
               </div>
 
-             
-
               <div class="col-md-6">
-                
                 <div class="inputBox mt-2">
-                  <input type="text" class="" min="9999" v-model="editable.coverImg" />
+                  <input
+                    type="text"
+                    class=""
+                    min="9999"
+                    v-model="editable.coverImg"
+                  />
                   <span>coverImg</span>
                 </div>
+                <div class="mt-4">
+                       <img :src="editable.coverImg" alt="" class="smallerImg">
+                </div>
               </div>
               <div class="col-md-6">
-                <div>
-                 IMG HERE MAYBE
-                </div>
+                <div>IMG HERE MAYBE</div>
                 <div class="mt-3 inputBox">
-                  <input type="url" class=" " v-model="editable.startDate" />
+                  <input type="date" class=" " v-model="editable.startDate" />
                   <span>StartDate</span>
                 </div>
               </div>
+              
             </div>
 
             <div class="inputBox2 mt-2">
-              <textarea class="mt-2" rows="5" v-model="editable.description"></textarea>
+              <textarea
+                class="mt-2"
+                rows="5"
+                v-model="editable.description"
+              ></textarea>
               <span>Description</span>
             </div>
 
             <div class="my-3">
-              <button class="btn btn-success selectable" type="submit">
-               Craete Event
+              <button class="btn selectable text-light img-shadow " type="submit">
+                <img src="https://cdn-icons-png.flaticon.com/512/8632/8632120.png" alt="" width="75" height="75">
+               Create Event
               </button>
             </div>
           </form>
@@ -77,16 +107,12 @@
 import { computed, ref, watchEffect } from 'vue';
 import { AppState } from '../AppState';
 import { accountService } from '../services/AccountService.js';
-import { eventsService } from "../services/EventsService.js";
+import { eventsService } from '../services/EventsService.js';
 import Pop from '../utils/Pop.js';
 export default {
   setup() {
     const editable = ref({});
-    watchEffect(() => {
-      // MUTABLE DATA BAD!!!!! IMMUTABLE DATA GOOD
-      //                 v BREAKS THE REFERENCE TO THE ORIGINAL OBJECT
-      editable.value = { ...AppState.account };
-    });
+   
     return {
       editable,
 
@@ -94,10 +120,12 @@ export default {
 
       async createEvent() {
         try {
-          await eventsService.createEvent(editable.value)
-          Pop.success('Account Edit Approved');
+          await eventsService.createEvent(editable.value);
+
+
+          Pop.success('Event Approved');
         } catch (error) {
-          Pop.error(error, '[]');
+          Pop.error('[creatorEvent]');
         }
       },
     };
@@ -119,6 +147,8 @@ export default {
   height: 200px;
   width: 375px;
   object-fit: cover;
+    border: dashed 4px rgb(146, 197, 245);
+      border-radius: 4px;
 }
 
 .form-Banner {
@@ -248,7 +278,7 @@ export default {
   border-radius: 2px;
 } */
 .modal-body {
-  background-image: url(https://images.freecreatives.com/wp-content/uploads/2016/03/Amazing-Background-For-Free.jpg);
+  background-image: url(https://wallpapercave.com/wp/wp7196471.jpg);
   background-size: cover;
   background-position: center;
   box-shadow: 1px 1px 10px rgba(243, 236, 236, 0.308);

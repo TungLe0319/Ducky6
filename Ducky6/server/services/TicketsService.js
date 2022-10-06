@@ -17,7 +17,7 @@ class TicketsService {
     const theLoggedInUserHasATicket = ticket.accountId.toString() == userId;
 
     if (!theLoggedInUserIsOwner && !theLoggedInUserHasATicket) {
-      throw new Forbidden("Can't Take Another Ticket");
+      throw new Forbidden("Forbidden! Not Your Ticket");
     }
     await ticket.remove();
     // @ts-ignore

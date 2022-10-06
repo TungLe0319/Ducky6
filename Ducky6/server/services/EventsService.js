@@ -28,6 +28,10 @@ class EventsService {
     return event;
   }
 
+  async getEventsByAccountId(accountId){
+    const event = await dbContext.Events.find(accountId).populate('creator','name picture')
+return event
+  }
   //Id is req.params.id
   async getEventById(id) {
     const event = await dbContext.Events.findById(id).populate(

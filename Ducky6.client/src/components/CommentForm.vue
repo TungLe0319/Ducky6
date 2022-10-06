@@ -32,17 +32,31 @@ import { eventsService } from '../services/EventsService.js';
 import Pop from '../utils/Pop.js';
 
 export default {
- 
   setup(props) {
     const editable = ref({});
 
     return {
       editable,
 
-   
+      //  async addComment() {
+      //   try {
+      //     await commentsService.addComment({
+      //       eventId: AppState.activeEvent.id || route.params.id,
+      //     });
+      //     Pop.success('Posted Comment');
+      //   } catch (error) {
+      //     Pop.error(error, '[addComment]');
+      //   }
+      // },
+
+      // commentData{
+      //   eventId: AppState.activeEvent.id
+      //   body: editable.body
+      // }
 
       async createComment() {
         try {
+          editable.value.eventId = AppState.activeEvent.id;
           await commentsService.createComment(editable.value);
         } catch (error) {
           Pop.error(error, '[addComment]');

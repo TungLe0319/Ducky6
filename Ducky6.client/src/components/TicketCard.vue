@@ -1,29 +1,36 @@
 <template>
-  <div class="ticket-card row">
+ 
+<div class="row justify-content-center ">
 
-<div class="col-md-3">
-  <img :src="ticket.event.coverImg" alt="" class="forcedImg">
-</div>
-<div class="col-md-8 d-flex flex-column align-items-start  bg-secondary">
-<span class="my-3"><h6> Event: {{ticket.event.name}}</h6></span>
-<span class="text-primary"><h6> Location: {{ticket.event.location}}</h6></span>
-<span class="text-warning"><h6>Start-Date: {{new Date(ticket.event.startDate).toLocaleTimeString()}}}</h6></span>
-<div>
-
-  <button @click.prevent="removeTicket()" class="btn btn-danger p-2">Not Going</button>
-</div>
-</div>
+  <div class="col-md-4 text-end ">
+    <img :src="ticket.event.coverImg" alt="" class="forcedImg img-shadow box-shadow2" >
   </div>
+  <div class="col-md-6 d-flex flex-column align-items-start ps-5 bg-secondary box-shadow2 img-shadow  ticket">
+  <span class="my-3"><h6> Event: {{ticket.event.name}}</h6></span>
+  <span class="text-primary lighten-10"><h6> Location: {{ticket.event.location}}</h6></span>
+  <span class="text-primary lighten-30"><h6>Start-Date: {{new Date(ticket.event.startDate).toLocaleTimeString()}}}</h6></span>
+  <div>
+  
+    <button @click.prevent="removeTicket()" class="btn btn-danger p-2">Not Going</button>
+  </div>
+  </div>
+  
+  <div class="ticketCircle">
+  
+  </div>
+</div>
+ 
 </template>
 
 <script>
+import { Ticket } from "../models/Ticket.js";
 import { ticketsService } from "../services/TicketsService.js";
 import Pop from "../utils/Pop.js";
-
+import {accountService} from "../services/AccountService.js"
 export default {
 
   props:{
-ticket:{type: Object, required:true}
+ticket:{type: Ticket, required:true}
   },
   setup(props) {
 
@@ -33,12 +40,14 @@ ticket:{type: Object, required:true}
 
 async removeTicket(){
   try {
-    const yes = await Pop.confirm()
+    const yes = await Pop.confirm('Are You Sure You Want To Give Up this Ticket?')
           if (!yes) {
             return
           }
-          debugger
-      await ticketsService.removeTicket(props.ticket.id)
+  
+
+    await accountService.removeMyTicket(props.ticket.id)
+      Pop.success('Returned Ticket For The Event')
     } catch (error) {
       Pop.error(error,'[removeTicket]')
     }
@@ -52,10 +61,30 @@ async removeTicket(){
 <style lang="scss" scoped>
 
 .forcedImg{
-  height: 300px;
+  height: 200px;
   width: auto;
   object-fit: cover;
+   clip-path: polygon(5% 0, 100% 0, 100% 15%, 95% 20%, 95% 80%, 100% 85%, 100% 100%, 5% 100%, 5% 85%, 0% 80%, 0% 20%, 5% 15% );
 }
 
+.ticketCircle{
 
+ 
+}
+ .circle {
+    position: absolute;
+  left: 1150px;
+  top: 130px;
+        height: 200px;
+        width: 200px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        background-color: #2a2d3a
+
+      }
+.ticket{
+   clip-path: polygon(5% 0, 100% 0, 100% 15%, 95% 20%, 95% 80%, 100% 85%, 100% 100%, 5% 100%, 5% 85%, 0% 80%, 0% 20%, 5% 15% );
+
+}
 </style>
