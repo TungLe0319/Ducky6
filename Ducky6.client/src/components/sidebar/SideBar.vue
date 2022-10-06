@@ -2,17 +2,9 @@
   <div class="sidebar" :style="{ width: sidebarWidth }">
     <h1 class="text-shadow titleText pointer">
       <span v-if="collapsed" class="titleText">
-        <div>
-          <img
-            src="https://cdn-icons-png.flaticon.com/800/7207/7207387.png"
-            alt=""
-            width="30"
-            height="30"
-            class="rounded"
-          />
-        </div>
+       
       </span>
-      <span class="titleText" v-else>Vue Sidebar</span>
+      <span class="titleText" v-else></span>
       <span :class="collapsed ? 'visually-hidden' : ''">
         <Login />
       </span>

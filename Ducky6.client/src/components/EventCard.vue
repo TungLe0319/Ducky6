@@ -1,20 +1,20 @@
 <template>
-  <router-link :to="{ name: 'EventDetails', params: { eventId: event.id } }">
+  <router-link :to="{ name: 'EventDetails', params: { eventId: event.id } }" >
     <div
       :class="getRandomBorder()"
       class="event-Card elevation-5 card my-3 mx-2 border-3 border d-flex flex-column justify-content-end"
       :style="{ backgroundImage: `url(${event?.coverImg})` }"
     >
      
-      <div class="p-2 cardBody text-light text-shadow">
+      <div :class="event.capacity <=0? 'bg-danger ':''" class="p-2 cardBody text-light text-shadow text-wrap d-flex flex-column justify-content-between">
         <span class=""
-          ><h5>{{ event.name }}</h5></span
+          ><h5 class="text-primary lighten-30">{{ event.name }}</h5></span
         >
         <span
-          ><p>{{ event.location }}</p></span
+          ><p class="text-primary lighten-20">{{ event.location }}</p></span
         >
         <span
-          ><p>{{ new Date(event.startDate).toLocaleDateString() }}</p></span
+          ><p class="text-primary lighten-20">{{ new Date(event.startDate).toLocaleDateString() }}</p></span
         >
         <span class="">
           <p class="text-success">{{ event.capacity }} spots left</p>
@@ -42,7 +42,7 @@
 import { computed } from '@vue/reactivity';
 import { AppState } from '../AppState.js';
 import { Event } from '../models/Event.js';
-import EventCreator from './EventCreator.vue';
+
 
 export default {
   props: {
@@ -69,7 +69,7 @@ export default {
       creator: computed(() => AppState.account),
     };
   },
-  components: { EventCreator },
+  components: {},
 };
 </script>
 
@@ -99,5 +99,21 @@ export default {
     box-shadow: 10px 4px 8px 0 rgba(0, 0, 0, 0.2),
       0 6px 10px 0 rgba(0, 0, 0, 0.19);
   }
+}
+
+.event-Card:hover{
+  transition: all 0.50s ease;
+
+    box-shadow: rgba(97, 239, 220, 0.613) 5px 5px, rgba(46, 182, 240, 0.515) 10px 10px,
+    rgba(46, 182, 240, 0.2) 15px 15px, rgba(46, 156, 240, 0.1) 20px 20px,
+    rgba(46, 82, 240, 0.05) 25px 25px;
+
+}
+
+.soldOut{
+      background-color: rgba(237, 61, 61, 0.687);
+    backdrop-filter: blur(5px);
+    box-shadow: 10px 4px 8px 0 rgba(0, 0, 0, 0.2),
+      0 6px 10px 0 rgba(0, 0, 0, 0.19);
 }
 </style>

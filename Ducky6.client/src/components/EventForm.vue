@@ -9,7 +9,7 @@
   >
     <div class="modal-dialog modal-lg">
       <div class="modal-content bg-dark">
-        <div class="modal-body FORM">
+        <div class="modal-body FORM animate__flipInY animate__animated">
           <!-- -------------------SECTION FORM----------------------------------- -->
           <form @submit.prevent="createEvent()" class="">
             <div class="row">
@@ -105,14 +105,16 @@
 
 <script>
 import { computed, ref, watchEffect } from 'vue';
+import { useRouter } from "vue-router";
 import { AppState } from '../AppState';
 import { accountService } from '../services/AccountService.js';
 import { eventsService } from '../services/EventsService.js';
+import { ticketsService } from "../services/TicketsService.js";
 import Pop from '../utils/Pop.js';
 export default {
   setup() {
     const editable = ref({});
-   
+   const router = useRouter()
     return {
       editable,
 
@@ -121,8 +123,9 @@ export default {
       async createEvent() {
         try {
           await eventsService.createEvent(editable.value);
-
-
+          // router.push({name:'EventDetails', params: {id: AppState.activeEvent.eventId}})
+// router.push(`/events/`)
+// await ticketsService.createTicket()
           Pop.success('Event Approved');
         } catch (error) {
           Pop.error('[creatorEvent]');

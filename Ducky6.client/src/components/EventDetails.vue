@@ -1,5 +1,5 @@
 <template>
-  <div class="event-details container-fluid">
+  <div class="event-details container-fluid animate__fadeIn animate__animated">
     <div
       class="row bg-secondary my-2 flex-wrap detailsBg box-shadow2 justify-content-around"
     >
@@ -35,24 +35,32 @@
             {{ event.description }}
           </p>
         </div>
-
-        <div class="d-flex justify-content-between" v-if="event.capacity > 0">
+<!-- -------------------------------------------------- CONDITIONAL RENDER -->
+  <div class="d-flex justify-content-between" v-if="event.capacity > 0" >
           <p>{{ event.capacity }} spots left</p>
           <button class="btn btn-warning" @click="createTicket()">
-            Attend <i class="mdi mdi-account fs-2"></i>
+            Attend <i class="mdi mdi-account fs-3"></i>
           </button>
-        </div>
-        <div class="d-flex justify-content-between" v-else>
-          <p>{{ event.capacity }}</p>
-          <button
-            v-if="hasTicket"
-            class="btn btn-danger"
+            <button
+         
+            class="btn btn-danger removeTicket"
             @click="removeTicket()"
           >
             removeTicket
           </button>
-          <button v-else class="btn btn-primary">Sold Out</button>
         </div>
+        <div v-else>
+<img src="https://sassypecan.com/wp-content/uploads/2018/12/sold-out.jpg" alt="" width="300" height="300" class="rounded img-shadow">
+  <button
+         v-if="event.capacity >0"
+            class="btn btn-danger removeTicket"
+            @click="removeTicket()"
+          >
+            removeTicket
+          </button>
+        </div>
+       
+      
       </div>
       <div class="p-2 d-flex">
         <img
@@ -97,9 +105,16 @@ export default {
       comments: computed(() => AppState.comments),
       creator: computed(() => AppState.account),
       account: computed(() => AppState.user),
-      hasTicket: computed(() =>
-        AppState.tickets.find((t) => (t.accountId == AppState.account.id))
-      ),
+      tickets:computed(() => AppState.tickets),
+      // hasTicket: computed(() =>
+      //   AppState.tickets.find((t) => (t.accountId == AppState.account.id))
+      // ),
+
+ticketOwner:computed(()=> AppState.tickets.find(t=> t.profile.id == AppState.account.id)),
+
+
+
+
 
       async createTicket() {
         try {
@@ -121,13 +136,32 @@ export default {
 
 async removeTicket(){
 try {
-
-    await  ticketsService.removeTicket(this.hasTicket.id)
+  // console.log(this.ticketOwner.id);
+const yes = await Pop.confirm()
+      if (!yes) {
+        return
+      }
+    await  ticketsService.removeTicket(this.ticketOwner.id)
+    Pop.success()
   } catch (error) {
     Pop.error(error,'[remove Ticket]')
   }
 },
 
+// async removeTicket(){
+//   try {
+//     const yes = await Pop.confirm('Are You Sure You Want To Give Up this Ticket?')
+//           if (!yes) {
+//             return
+//           }
+  
+
+//     await accountService.removeMyTicket(props.ticket.id)
+//       Pop.success('Returned Ticket For The Event')
+//     } catch (error) {
+//       Pop.error(error,'[removeTicket]')
+//     }
+// }
 
 
       async removeEvent() {
@@ -194,5 +228,9 @@ try {
 transform: scale(1.14);
 color: red;
 transition:  0.75s ease;
+}
+
+.removeTicket{
+  transition: 0.72 ease;
 }
 </style>

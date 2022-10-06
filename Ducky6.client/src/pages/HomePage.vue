@@ -9,7 +9,7 @@
           <input
             type="text"
             class="form-control"
-            placeholder="Searcher..."
+            placeholder="Search By Name..."
             v-model="editable"
           />
         </div>

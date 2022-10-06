@@ -1,10 +1,10 @@
 <template>
   <div class="Event-Details container-fluid" v-if="event">
     <div class="row justify-content-center">
-      <div class="col-md-11 animate__flipInY animate__animated">
+      <div class="col-md-11 animate__lightSpeedInRight animate__animated d-flex ">
         <EventDetails :event="event" :account="account" />
       </div>
-      <div class="col-md-10 bg-secondary d-flex box-shadow2">
+      <div class="col-md-10 bg-secondary d-flex box-shadow2" v-if="tickets">
         <TickerHolders v-for="t in tickets" :ticket="t" :key="t.id" />
       </div>
 
@@ -12,7 +12,7 @@
         <!-- <CommentsBox  :comment="comments  " :profile="profiles" /> -->
         <CommentForm />
       </div>
-      <div class="col-md-8 px-5 bg-secondary box-shadow2 ">
+      <div class="col-md-8 my-sm-4 bg-secondary box-shadow2 ">
         <CommentCreatorCard :comment="c" v-for="c in comments" class="animate__animated animate__fadeInBottomLeft commentBox"/>
       </div>
     </div>
@@ -108,4 +108,7 @@ export default {
 .commentBox{
   transition: all 1s ease;
 }
+.animate__animated.animate__lightSpeedInRight{
+  --animate-duration:1s
+ }
 </style>

@@ -23,27 +23,6 @@ class TicketsService {
 
   }
 
-  // async deleteTicket(ticketId, userId) {
-  //   const ticket = await this.getTicketById(ticketId);
-  //   if (!ticket) {
-  //     throw new BadRequest('Invalid ticket Id');
-  //   }
-  //   const event = await eventsService.getEventById(ticket.eventId);
 
-  //   // @ts-ignore
-  //   const theLoggedInUserIsOwner = userId == event.creatorId.toString();
-
-  //   // @ts-ignore
-  //   const theLoggedInUserHasATicket = ticket.accountId.toString() == userId;
-
-  //   if (!theLoggedInUserIsOwner && !theLoggedInUserHasATicket) {
-  //     throw new Forbidden('Forbidden! Not Your Ticket');
-  //   }
-  //   await ticket.remove();
-  //   // @ts-ignore
-  //   await event.capacity++;
-  //   await event.save();
-  //   return ticket;
-  // }
 }
 export const ticketsService = new TicketsService();

@@ -1,24 +1,26 @@
 <template>
- 
-<div class="row justify-content-center ">
+  <router-link :to="{ name: 'EventDetails', params: { eventId: ticket.event.id} }">
 
-  <div class="col-md-4 text-end ">
-    <img :src="ticket.event.coverImg" alt="" class="forcedImg img-shadow box-shadow2" >
-  </div>
-  <div class="col-md-6 d-flex flex-column align-items-start ps-5 bg-secondary box-shadow2 img-shadow  ticket">
-  <span class="my-3"><h6> Event: {{ticket.event.name}}</h6></span>
-  <span class="text-primary lighten-10"><h6> Location: {{ticket.event.location}}</h6></span>
-  <span class="text-primary lighten-30"><h6>Start-Date: {{new Date(ticket.event.startDate).toLocaleTimeString()}}}</h6></span>
-  <div>
-  
-    <button @click.prevent="removeTicket()" class="btn btn-danger p-2">Not Going</button>
-  </div>
-  </div>
-  
-  <div class="ticketCircle">
-  
-  </div>
-</div>
+    <div class="row justify-content-center ">
+    
+      <div class="col-md-4 text-end ">
+        <img :src="ticket.event.coverImg" alt="" class="forcedImg img-shadow box-shadow2" >
+      </div>
+      <div class="col-md-6 d-flex flex-column align-items-start ps-5 bg-secondary box-shadow2 img-shadow  ticket">
+      <span class="my-3"><h6> Event: {{ticket.event.name}}</h6></span>
+      <span class="text-primary lighten-10"><h6> Location: {{ticket.event.location}}</h6></span>
+      <span class="text-primary lighten-30"><h6>Start-Date: {{new Date(ticket.event.startDate).toLocaleTimeString()}}}</h6></span>
+      <div class="">
+      
+        <button @click.prevent="removeTicket()" class="btn btn-outline-danger ">Not Going</button>
+      </div>
+    </div>
+      
+      <div class="ticketCircle">
+      
+      </div>
+    </div>
+  </router-link>
  
 </template>
 
@@ -86,5 +88,8 @@ async removeTicket(){
 .ticket{
    clip-path: polygon(5% 0, 100% 0, 100% 15%, 95% 20%, 95% 80%, 100% 85%, 100% 100%, 5% 100%, 5% 85%, 0% 80%, 0% 20%, 5% 15% );
 
+}
+.ticket:hover{
+    box-shadow: 0 4px 8px 0 rgb(246, 231, 231), 0 6px 20px 0 rgba(252, 234, 234, 0.969);
 }
 </style>

@@ -8,19 +8,19 @@
       Login
     </button>
 
-    <div class="dropdown my-2 my-lg-0" v-else>
+    <div class="dropdown my-2 my-lg-0 d-flex " v-else>
      
-        <div v-if="account.picture || user.picture" class="ms-3 mb-3">
+        <div v-if="account.picture || user.picture" class="">
           <img
             :src="account.picture || user.picture"
             alt="account photo"
-            height="100"
+            height="75"
             class="rounded-circle img-shadow"
           />
          
-         <div class="list-group-item list-group-item-action hoverable text-danger" @click="logout">
+         <div class="list-group-item list-group-item-action hoverable d-flex justify-content-start my-3 text-danger" @click="logout">
           <i class="mdi mdi-logout"></i>
-          logout
+         <small> logout</small>
         </div>
       </div>
       <div class="dropdown-menu p-0 list-group w-100" aria-labelledby="authDropdown">

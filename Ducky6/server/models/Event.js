@@ -6,32 +6,33 @@ export const EventSchema = new Schema(
   {
     name: {
       type: String,
-     
+
       required: true,
     },
 
     description: {
       type: String,
-    required:true
+      required: true,
     },
     coverImg: {
       type: String,
-      default: '//thiscatdoesnotexist.com',
-      required:true
+      default:
+        'https://codeworks.blob.core.windows.net/media/mark.ohnsman__QGdtYWlsLmNvbQ==/giraffe.jpeg',
+      required: true,
     },
     location: {
       type: String,
-      default: 'Italy',
-      required:true
+      default: 'Local Expo Center',
+      required: true,
     },
     capacity: {
       type: Number,
-     
-     default: 100,
+      min: 10,
+      default: 100,
     },
     startDate: {
       type: Date,
-      required:true
+      required: true,
     },
     isCanceled: {
       type: Boolean,
@@ -44,7 +45,7 @@ export const EventSchema = new Schema(
       enum: ['convention', 'sport', 'digital', 'concert'],
     },
 
-    creatorId:{type: ObjectId, ref: 'Account', required:true},
+    creatorId: { type: ObjectId, ref: 'Account', required: true },
   },
   {
     timestamps: true,

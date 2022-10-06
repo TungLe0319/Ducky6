@@ -1,5 +1,5 @@
 <template>
-  <div class="ticket-holders d-flex  p-2  ">
+  <div class="ticket-holders d-flex  p-md-2  ">
     
 <div>
 
@@ -7,7 +7,7 @@
 </div>
   <div class=" ms-3 commentBodyBg text-dark card p-2 flex-column d-flex justify-content-center w-100 box-shadow2">
     <p>  <b class="ps-3">{{comment.creator.name}} {{}}   </b></p>
-    <p class="ps-3">{{comment.body}} </p>
+    <p class="ps-md-3">{{comment.body}} </p>
   </div>  
 
 
@@ -27,7 +27,7 @@ import Pop from "../utils/Pop.js";
 export default {
   props: {
 
-comment:{type:Comment,required:true}
+comment:{required:true}
 
   },
 
