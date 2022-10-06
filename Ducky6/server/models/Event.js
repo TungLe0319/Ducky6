@@ -1,34 +1,37 @@
-import { Schema } from 'mongoose';
-
+import mongoose from "mongoose"
+ const Schema= mongoose.Schema
 const ObjectId = Schema.Types.ObjectId;
 
 export const EventSchema = new Schema(
   {
     name: {
       type: String,
-      default: 'Tung Testing Create ',
+     
       required: true,
     },
 
     description: {
       type: String,
-      default: '',
+    required:true
     },
     coverImg: {
       type: String,
       default: '//thiscatdoesnotexist.com',
+      required:true
     },
     location: {
       type: String,
       default: 'Italy',
+      required:true
     },
     capacity: {
       type: Number,
-      default: '100',
-      required: true,
+     
+     default: 100,
     },
     startDate: {
       type: Date,
+      required:true
     },
     isCanceled: {
       type: Boolean,
@@ -41,7 +44,7 @@ export const EventSchema = new Schema(
       enum: ['convention', 'sport', 'digital', 'concert'],
     },
 
-    creatorId: { type: ObjectId, required: true, ref: 'Account' },
+    creatorId:{type: ObjectId, ref: 'Account', required:true},
   },
   {
     timestamps: true,

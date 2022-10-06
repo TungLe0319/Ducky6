@@ -1,9 +1,9 @@
 import { BadRequest, Forbidden } from '@bcwdev/auth0provider/lib/Errors.js';
 import { dbContext } from '../db/DbContext.js';
 
-class EventService {
+class EventsService {
   async cancelEvent(id, userInfo) {
-    const event = await this.getEventThatIsNotCancelledById(id);
+    const event = await this.getEventById(id);
     // @ts-ignore
     if (userInfo.id != event.creatorId.toString()) {
       throw new Forbidden('Not Your Event To Remove, Begone!');
@@ -29,46 +29,60 @@ class EventService {
   }
 
   //Id is req.params.id
-  async getEventThatIsNotCancelledById(id) {
+  async getEventById(id) {
     const event = await dbContext.Events.findById(id).populate(
       'creator',
       'name picture'
     );
+
+    // const event = await dbContext.Events.findById(id).populate(
+    //   'creator',
+    //   'name picture'
+    // );
     if (!event) {
       throw new BadRequest('Invalid event Id');
     }
     return event;
   }
 
+  async getEventIfNotCancelled(id) {
+    const event = await this.getEventById(id);
+
+    if (event.isCanceled) {
+      throw new BadRequest('Tis Cancelled... sorry.');
+    }
+    return event;
+  }
   async editEvent(eventData, eventId, userInfo) {
-    const event = await this.getEventThatIsNotCancelledById(eventId);
+    const event = await this.getEventIfNotCancelled(eventId)
 
     // @ts-ignore
     if (userInfo.id != event.creatorId.toString()) {
-      throw new Forbidden('Not Yours To Edit! BEGONE!');
+      throw new Forbidden('Forbidden! You Cannot Edit This Event.');
+    }
+
+    if (!event) {
+      throw new BadRequest(
+        'Invalid or Bad Event Id..'
+      );
     }
     event.name = eventData.name || event.name;
     event.description = eventData.description || event.description;
 
     await event.save();
     return event;
-    //name
-
-    //description
-
-    //save
-    //return
   }
-  // async getEventThatIsNotCancelled(id){
-  //   const event = await this.getEventById(id)
+  async getEventThatIsNotCancelled(eventId) {
+    const event = await this.getEventById(eventId);
 
-  //   if (event.isCanceled) {
-  //     throw new BadRequest('This Event Is Cancelled Sorry...')
-  //   }
+    if (event.isCanceled) {
+      throw new BadRequest('This Event Is Cancelled Sorry...');
+    }
 
-  // }
+    return event;
+  }
 }
 
-export const eventsService = new EventService();
+export const eventsService = new EventsService();
 
 //Do not forget to fill out schemas in Dbcontext.js

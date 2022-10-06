@@ -14,7 +14,7 @@ export class EventsController extends BaseController {
       .get('/:id/tickets', this.getTicketsByEventId)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .delete('/:id', this.removeEvent)
-      .put('/:id',this.editEvent)
+      .put('/:id', this.editEvent)
       .post('', this.createEvent);
   }
   async getEvents(req, res, next) {
@@ -28,9 +28,7 @@ export class EventsController extends BaseController {
 
   async getEventById(req, res, next) {
     try {
-      const event = await eventsService.getEventThatIsNotCancelledById(
-        req.params.id
-      );
+      const event = await eventsService.getEventById(req.params.id);
       res.send(event);
     } catch (error) {
       next(error);
@@ -57,6 +55,14 @@ export class EventsController extends BaseController {
     }
   }
 
+
+  async getEventThatIsNotCancelledById(req,res,next){
+try {
+  
+} catch (error) {
+  next(error)
+}
+  }
   async getTicketsByEventId(req, res, next) {
     try {
       const tickets = await ticketsService.getTicketByEventId(req.params.id);
@@ -85,7 +91,7 @@ export class EventsController extends BaseController {
         req.params.id,
         req.userInfo
       );
-      res.send(comment)
+      res.send(comment);
     } catch (error) {
       next(error);
     }

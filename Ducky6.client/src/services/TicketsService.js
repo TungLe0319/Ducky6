@@ -5,6 +5,12 @@ import { api } from './AxiosService.js';
 
 class TicketsService {
   async createTicket(eventData) {
+    let accountId = AppState.account.id
+    
+if (accountId == eventData.creatorId) {
+  throw new console.error('YOU Already Have a Ticket');
+}
+
     const res = await api.post('/api/tickets', eventData);
     const ticketHolder = res.data;
     AppState.tickets.push(ticketHolder);

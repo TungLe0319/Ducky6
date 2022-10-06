@@ -4,52 +4,68 @@ import { eventsService } from './EventsService.js';
 
 class TicketsService {
   async deleteTicket(ticketId, userId) {
-    const ticket = await this.getTicketById(ticketId)
+    const ticket = await this.getTicketById(ticketId);
     if (!ticket) {
       throw new BadRequest('Invalid ticket Id');
     }
-    const event = await eventsService.getEventThatIsNotCancelledById(
-      ticket.eventId
-    );
- // @ts-ignore
- if (userId != ticket.creatorId.toString()) {
-   throw new Forbidden("Tung- You Are FORBIDDEN")
- }
+    const event = await eventsService.getEventById(ticket.eventId);
 
     // @ts-ignore
     const theLoggedInUserIsOwner = userId == event.creatorId.toString();
 
     // @ts-ignore
-    const theLoggedInUserHasATicket = userId == ticket.accountId.toString();
+    const theLoggedInUserHasATicket = ticket.accountId.toString() == userId;
 
     if (!theLoggedInUserIsOwner && !theLoggedInUserHasATicket) {
       throw new Forbidden("Can't Take Another Ticket");
     }
     await ticket.remove();
+    // @ts-ignore
+    await event.capacity++;
+    await event.save();
     return ticket;
   }
-  async createTicket(eventId, accountId) {
-    //REVIEW grab events that aren't cancelled...
-    //make sure they don't already have a ticket for Event
-    //increase event Capacity once ticket is created
+  async createTicket(ticketData) {
+    const event = await eventsService.getEventThatIsNotCancelled(
+      ticketData.eventId
+    );
 
-    await eventsService.getUncancelledEvents(eventId);
-    const hasTicket = await this.getTicketsForEvent(eventId, accountId);
-    if (hasTicket) {
-      return hasTicket;
+    // const event = await eventsService.getEventThatIsNotCancelled(
+    //   ticketData.eventId
+    // );
+    // const hasTicket = await this.getTicketForEvent(
+    //   ticketData.eventId,
+    //   ticketData.accountId
+    // );
+    // if (hasTicket) {
+    //   return hasTicket;
+    // }
+
+    const ticket = await dbContext.Tickets.create(ticketData);
+    // @ts-ignore
+    if (event.capacity <= 0) {
+      throw new BadRequest('out of tickets');
+    }
+    if (ticket) {
+      // @ts-ignore
+
+      //REVIEW THIS. FELT SO SIMPLE TOOK FOREVER TO FIGURE OUT
+      event.capacity--;
     }
 
-    const ticket = await dbContext.Tickets.create({ eventId, accountId });
+    // @ts-ignore
+    await event.save();
 
     await ticket.populate('profile', ' name picture');
-    await ticket.populate('event', ' name coverImg');
+    await ticket.populate('event');
+
     return ticket;
   }
 
   /**
    * people who have ticket for the event
    */
-  async getTicketsForEvent(eventId, accountId) {
+  async getTicketForEvent(eventId, accountId) {
     const ticket = await dbContext.Tickets.findOne({ eventId, accountId })
       .populate('profile', 'name picture')
       .populate('event', 'name coverImg');
@@ -62,6 +78,8 @@ class TicketsService {
       .populate('profile', 'name picture'); //double check this REVIEW
     return tickets;
   }
+
+  //NOTE TICKETS FOR LOGGED IN USER
   async getTicketByAccountId(accountId) {
     const tickets = await dbContext.Tickets.find({ accountId })
       .populate('profile', 'name picture')
@@ -69,9 +87,11 @@ class TicketsService {
     return tickets;
   }
 
-  async getTicketById(id){
-    const ticket = await dbContext.Tickets.findById(id).populate('profile','name picture').populate('event')
-    return ticket
+  async getTicketById(id) {
+    const ticket = await dbContext.Tickets.findById(id)
+      .populate('profile', 'name picture')
+      .populate('event');
+    return ticket;
   }
 }
 

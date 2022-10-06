@@ -5,15 +5,12 @@ import { eventsService } from './EventsService.js';
 class CommentsService {
   async deleteComment(commentId, userId) {
     const comment = await this.getCommentById(commentId);
-    if (!comment) {
-      throw new BadRequest('Invalid or Bad Comment Id');
-    }
 
     // @ts-ignore
     if (userId != comment.creatorId.toString()) {
       throw new Forbidden('Not Your Comment Begone');
     }
-    comment.delete();
+    await comment.delete();
     return comment;
   }
 
@@ -45,11 +42,13 @@ class CommentsService {
     return comment;
   }
 
-async getComments(){
-  const comment = await dbContext.Comments.find().populate('creator' ,' name picture')
-  return comment
-}
-
+  async getComments() {
+    const comment = await dbContext.Comments.find().populate(
+      'creator',
+      ' name picture'
+    );
+    return comment;
+  }
 }
 
 export const commentsService = new CommentsService();
