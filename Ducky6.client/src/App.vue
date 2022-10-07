@@ -4,8 +4,8 @@
   </header>
   <main class=" ">
     
-    <SideBar  />
-    <div :style="{'margin-left' : sidebarWidth}" class="p-sm-5" >
+    <SideBar class="sideBar" />
+    <div :style="{'margin-left' : sidebarWidth}"  >
 
       <router-view />
     </div>
@@ -62,5 +62,8 @@ export default {
   border-radius: 10px;
   background-color: #fc8506;
 }
+
+
+
 
 </style>

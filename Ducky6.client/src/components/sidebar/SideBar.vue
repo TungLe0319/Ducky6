@@ -28,13 +28,20 @@
 
     <div class="text-center">
       <button
-      
+      v-if="user.isAuthenticated"
         class="btn p-0 "
         data-bs-toggle="modal"
         data-bs-target="#formModal"
       >
         <i class="mdi mdi-ticket  text-shadow "  :class="collapsed? 'fs-4 flex-column justify-content-center d-flex align-items-center ':'fs-1 '" ></i>
       </button>
+      <button
+      class="btn selectable text-success p-0 lighten-30 text-uppercase "
+      @click="login"
+      v-if="!user.isAuthenticated"
+    >
+      <i class="mdi mdi-ticket  text-shadow "  :class="collapsed? 'fs-4 flex-column justify-content-center d-flex align-items-center ':'fs-1 '" ></i>
+    </button>
       <p v-if="!collapsed" class="text-shadow">New Event</p>
     </div>
     <span
@@ -59,10 +66,14 @@ import Login from '../Login.vue';
 import Pop from '../../utils/Pop.js';
 import { eventsService } from '../../services/EventsService.js';
 import EventForm from "../EventForm.vue";
+import { computed } from "@vue/reactivity";
+import { AppState } from "../../AppState.js";
+import { AuthService } from "../../services/AuthService.js";
 
 export default {
   setup() {
     return {
+        user: computed(() => AppState.user),
       collapsed,
       toggleSidebar,
       sidebarWidth,
@@ -74,6 +85,12 @@ export default {
           Pop.error(error, '[createEvent]');
         }
       },
+
+
+   async login() {
+        AuthService.loginWithRedirect()
+      },
+
     };
   },
   components: { SideBarLink, Login, EventForm },
@@ -155,6 +172,7 @@ export default {
   }
 
   .sidebar {
+
     display: none;
   }
   .links {

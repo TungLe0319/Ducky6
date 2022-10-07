@@ -1,12 +1,12 @@
 <template>
-  <router-link :to="{ name: 'EventPage', params: { id: event.id } }">
+  <router-link :to="{ name: 'EventPage', params: { id: event.id } }"   :class="event.capacity <= 0 ? ' opacity-75 testfilter' : ''">
     <div
       :class="getRandomBorder()"
       class="event-Card elevation-5 card my-3 mx-2 border-3 border d-flex flex-column justify-content-end"
       :style="{ backgroundImage: `url(${event.coverImg})` }"
     >
       <div
-        :class="event.capacity <= 0 ? 'bg-danger opacity-50' : ''"
+      
         class="p-2 cardBody text-light text-shadow text-wrap d-flex flex-column justify-content-between"
       >
         <span class=""
@@ -91,7 +91,7 @@ export default {
 <style lang="scss" scoped>
 .text-shadow {
   color: aliceblue;
-  text-shadow: 1px 1px black, 0px 0px 5px #e5e5e5;
+  text-shadow: 1px 1px black, 0px 0px 2px #e5e5e5;
   font-weight: 400;
   letter-spacing: 0.08rem;
   /* Second Color  in text-shadow is the blur */
@@ -132,4 +132,8 @@ export default {
   box-shadow: 10px 4px 8px 0 rgba(0, 0, 0, 0.2),
     0 6px 10px 0 rgba(0, 0, 0, 0.19);
 }
+.testfilter{
+  filter: grayscale(100%)
+}
+
 </style>

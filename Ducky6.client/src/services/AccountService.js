@@ -18,10 +18,9 @@ class AccountService {
   async getMyTickets() {
     try {
       const res = await api.get('/account/tickets');
-      console.log(res.data);
+      // console.log(res.data);
       AppState.myTickets = res.data.map((t) => new Ticket(t));
-      // console.log(AppState.myTickets);
-      // AppState.myTickets = [...AppState.myTickets, new Ticket(res.data)];
+  
     } catch (error) {
       logger.error('Get My Tickets', error);
     }
@@ -30,8 +29,7 @@ class AccountService {
   async removeMyTicket(ticketId) {
     const res = await api.delete(`api/tickets/${ticketId}`);
     AppState.myTickets = AppState.myTickets.filter((t) => t.id != ticketId);
-    //   AppState.tickets = AppState.tickets.filter((t) => t.id != ticketId);
-    // }
+  
   }
 }
 export const accountService = new AccountService();

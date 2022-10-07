@@ -18,7 +18,7 @@
       </div>
 
       <div
-        class="col-md-7 flex-wrap description mb-3 elevation-5 d-flex flex-column justify-content-around"
+        class="col-md-7 flex-wrap description p-3  mb-3 elevation-5 d-flex flex-column justify-content-around"
       >
         <div class="d-flex justify-content-between text-shadow">
           <p>{{ event.name }}</p>
@@ -27,7 +27,14 @@
         <div class="d-flex justify-content-between text-shadow">
           <p class="text-primary">{{ event.location }}</p>
           <p class="text-warning lighten-10">
-            {{ event.startDate }}
+            {{ new Date(event.startDate).toLocaleDateString('en-US', {
+      year: '2-digit',
+      month: '2-digit',
+      day: '2-digit',
+      hour:'2-digit',
+      weekday:'long',
+      minute:'2-digit'
+    }) }}
           </p>
         </div>
         <div class="text-start">
@@ -36,7 +43,7 @@
           </p>
         </div>
         <!-- -------------------------------------------------- CONDITIONAL RENDER -->
-        <div class="d-flex justify-content-between" v-if="event.capacity > 0">
+        <div class="d-flex justify-content-between" v-if="event.capacity > 0 ">
           <p>
             <b class="text-warning lighten-10 fs-3                                  "> {{ event.capacity }} </b> spots
             left
@@ -170,7 +177,7 @@ export default {
       async removeTicket() {
         try {
           // console.log(this.ticketOwner.id);
-          const yes = await Pop.confirm('Are You Sure You Want To Give Up This Ticket?');
+          const yes = await Pop.confirm('Are You Sure You Want To Give Up This Ticket?','Theres a chance someone will take this ticket and sell out the event.');
           if (!yes) {
             return;
           }

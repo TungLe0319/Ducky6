@@ -1,12 +1,9 @@
-import {Schema} from 'mongoose';
+import { Schema } from 'mongoose';
 
 const ObjectId = Schema.Types.ObjectId;
 
 export const TicketSchema = new Schema(
   {
-    
-  
-
     accountId: { type: ObjectId, required: true, ref: 'Account' },
     eventId: { type: ObjectId, required: true, ref: 'Event' },
   },
@@ -19,7 +16,7 @@ export const TicketSchema = new Schema(
 );
 
 //only one person can have a ticket, another person cannot have the same ticket
-// TicketSchema.index({eventId:1, accountId :1},{unique : true})
+TicketSchema.index({ eventId: 1, accountId: 1 }, { unique: true });
 
 TicketSchema.virtual('profile', {
   localField: 'accountId',
@@ -33,5 +30,3 @@ TicketSchema.virtual('event', {
   justOne: true,
   ref: 'Event',
 });
-
-

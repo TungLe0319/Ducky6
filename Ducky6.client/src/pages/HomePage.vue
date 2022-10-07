@@ -1,12 +1,16 @@
 <template>
-  <div class="container-fluid mt-5">
+  <div class="container my-2 ">
     <div class="row">
+      <div class="col-md-2">
+
+        <img src="../assets/img/Logo.svg" alt="" width="200" height="100">
+      </div>
       <div class="col-md-12 ">
         <HomePageBanner />
       </div>
       <div class="col-md-12">
       
-        <div class="d-flex justify-content-around my-3 bg-secondary p-2 rounded box-shadow2">
+        <div class="d-flex justify-content-around my-3 bg-secondary  rounded box-shadow2">
    
           <button @click="getEventsByType('') " class="btn btn-outline-warning  filter" aria-label="getEventsByType">
             All
@@ -14,30 +18,31 @@
           <button
             @click="getEventsByType('concert') "
             class="btn btn-outline-warning filter"
-            id="filterBtn"
+         
             aria-label="getEventsByType"
+          
           >
             Concert
           </button>
           <button
             @click="getEventsByType('convention')"
             class="btn btn-outline-warning filter"
-                  id="filterBtn"
+               
                      aria-label="getEventsByType"
           >
             Convention
           </button>
           <button
             @click="getEventsByType('sport')"
-            class="btn btn-outline-warning"
-                  id="filterBtn"
+            class="btn btn-outline-warning filter"
+                
                      aria-label="getEventsByType"
           >
             Sport
           </button>
           <button
             @click="getEventsByType('digital')"
-            class="btn btn-outline-warning"
+            class="btn btn-outline-warning filter"
                   id="filterBtn"
                      aria-label="getEventsByType"
           >
@@ -105,10 +110,23 @@ button:active{
   background-color: red;
 }
 
-
+button:focus{
+  color: rgb(31, 28, 28);
+  border: 1px solid  #56C7FB;
+  background-color: #56C7FB;
+border-bottom: 5px solid #56C7FB;
+box-shadow: #56c7fbac 0px 5px, rgba(46, 240, 237, 0.3) 0px 10px, rgba(46, 179, 240, 0.2) 0px 15px, rgba(46, 98, 240, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px;
+}
 .filter:focus{
 
-  background-color: red;
+
+}
+.scrollMe{
+  overflow: auto;
+  max-height: 90vh;
 }
 
+::-webkit-scrollbar{
+  display: none;
+}
 </style>

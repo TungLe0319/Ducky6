@@ -1,5 +1,5 @@
 <template>
-  <div class="comment-Box container-fluid">
+  <div class="comment-Box container-fluid animate__fadeIn animate__animated " v-if="user.isAuthenticated">
     <div class="row">
       <div class="col-md-12">
         <form @submit.prevent="createComment()">
@@ -16,7 +16,7 @@
               aria-required="true"
             ></textarea>
 
-            <button type="submit" class="btn btn-warning">Post Comment</button>
+            <button  type="submit" class="btn btn-warning">Post Comment</button>
           </div>
         </form>
       </div>
@@ -29,6 +29,7 @@ import { computed } from '@vue/reactivity';
 import { ref, watchEffect } from 'vue';
 import { AppState } from '../AppState.js';
 import { Comment } from '../models/Comment.js';
+import { AuthService } from "../services/AuthService.js";
 import { commentsService } from '../services/CommentsService.js';
 import { eventsService } from '../services/EventsService.js';
 import Pop from '../utils/Pop.js';
@@ -39,23 +40,11 @@ export default {
 
     return {
       editable,
-
-      //  async addComment() {
-      //   try {
-      //     await commentsService.addComment({
-      //       eventId: AppState.activeEvent.id || route.params.id,
-      //     });
-      //     Pop.success('Posted Comment');
-      //   } catch (error) {
-      //     Pop.error(error, '[addComment]');
-      //   }
-      // },
-
-      // commentData{
-      //   eventId: AppState.activeEvent.id
-      //   body: editable.body
-      // }
-
+user:computed(()=> AppState.user),
+     
+      async login() {
+     AuthService.loginWithRedirect()
+      },
       async createComment() {
         try {
           editable.value.eventId = AppState.activeEvent.id;

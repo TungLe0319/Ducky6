@@ -1,7 +1,11 @@
 <template>
   <div class="text-center accountPage text-light container-fluid">
     <div class="container">
+         <div class="col-md-5 text-start my-4">
+        <h4 class="text-success lighten-20">Events I'm Hosting</h4>
+      </div>
       <div class="row horizontal-scrollable">
+        
         <div
           class="col-md-3 animate__flipInY animate__animated p-4"
           v-for="e in events"
@@ -18,7 +22,6 @@
         class="col-md-8 my-3 animate__animated animate__lightSpeedInRight"
         v-for="t in myTickets"
       >
-        <!-- <TicketCard class="" :ticket="t" /> -->
         <TicketCard :ticket="t" />
       </div>
     </div>
@@ -97,12 +100,10 @@ export default {
 }
 
 *::-webkit-scrollbar-track:hover {
-
   cursor: pointer;
 }
 
 *::-webkit-scrollbar-track:active {
-
 }
 
 *::-webkit-scrollbar-thumb {
@@ -110,6 +111,4 @@ export default {
   border-radius: 10px;
   background-color: #9dffe5;
 }
-
-
 </style>

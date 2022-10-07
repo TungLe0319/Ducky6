@@ -1,20 +1,25 @@
 <template>
   <div class="Event-Details container-fluid" v-if="event">
     <div class="row justify-content-center">
-      
-      <div class="col-md-11  animate__fadeIn animate__animated d-flex ">
+      <div class="col-md-11 animate__fadeIn animate__animated d-flex">
         <EventDetails :event="event" :account="account" />
       </div>
-      <div class="col-md-10 bg-secondary d-flex flex-wrap box-shadow2" v-if="tickets">
+      <div
+        class="col-md-10 bg-secondary d-flex flex-wrap box-shadow2"
+        v-if="tickets"
+      >
         <TickerHolders v-for="t in tickets" :ticket="t" :key="t.id" />
       </div>
 
       <div class="col-md-10 my-3">
-   
         <CommentForm />
       </div>
-      <div class="col-md-8 my-sm-4 bg-secondary box-shadow2 p-1 ">
-        <CommentCreatorCard :comment="c" v-for="c in comments" class="animate__animated animate__fadeInBottomLeft commentBox"/>
+      <div class="col-md-8 my-sm-4 bg-secondary box-shadow2 p-1">
+        <CommentCreatorCard
+          :comment="c"
+          v-for="c in comments"
+          class="animate__animated animate__fadeInBottomLeft commentBox"
+        />
       </div>
     </div>
   </div>
@@ -66,7 +71,6 @@ export default {
       getEventDetailsById();
       getCommentsByEventId();
       getTicketHoldersByEventId();
-     
     });
 
     return {
@@ -76,8 +80,6 @@ export default {
       account: computed(() => AppState.account),
 
       tickets: computed(() => AppState.tickets),
-
-  
     };
   },
   components: { EventDetails, CommentForm, CommentCreatorCard, TickerHolders },
@@ -98,10 +100,10 @@ export default {
   object-fit: cover;
 }
 
-.commentBox{
+.commentBox {
   transition: all 1s ease;
 }
-.animate__animated.animate__lightSpeedInRight{
-  --animate-duration:1s
- }
+.animate__animated.animate__lightSpeedInRight {
+  --animate-duration: 1s;
+}
 </style>

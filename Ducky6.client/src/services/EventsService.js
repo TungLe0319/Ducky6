@@ -7,6 +7,7 @@ import { Ticket } from '../models/Ticket.js';
 import { router } from '../router.js';
 
 import { api } from './AxiosService.js';
+import { ticketsService } from "./TicketsService.js";
 
 class EventsService {
   async getEvents(type = '') {
@@ -45,11 +46,11 @@ class EventsService {
     //TODO fire off CreateTicket from here.
     const event = new Event(res.data);
     // let eventId=res.data.id
-
+ 
     // res = await api.post('/api/tickets',{eventId})
     // const ticketHolder = res.data
     // AppState.tickets.push(ticketHolder)
-    console.log(event);
+    // console.log(event);
 
     AppState.events = [event, ...AppState.events];
     AppState.activeEvent = event;
@@ -58,7 +59,7 @@ class EventsService {
 
   async removeEvent(eventId) {
     const res = await api.delete(`api/events/${eventId}`);
-    console.log(res.data);
+    // console.log(res.data);
     AppState.events = AppState.events.filter((e) => e.id != eventId);
     AppState.activeEvent.isCanceled = true;
   }
@@ -71,10 +72,10 @@ class EventsService {
 
   async getTicketsByEventId(eventId) {
     const res = await api.get(`api/events/${eventId}/tickets`);
-    console.log(res.data);
+    // console.log(res.data);
 
     AppState.tickets = res.data.map((t) => new Ticket(t));
-    console.log(AppState.tickets);
+    // console.log(AppState.tickets);
   }
 
   async createTicket() {}

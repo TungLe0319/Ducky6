@@ -3,11 +3,13 @@
 @import "./_overrides.scss";
 @import "./utilities.scss";
 @import "./loaders.scss";
-
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&family=Bebas+Neue&family=Oswald&family=Roboto&display=swap');
 body{
   overscroll-behavior: none;
 }
-
+*{
+  font-family: 'Roboto', cursive;
+}
 #app {
   display: flex;
   flex-direction: column;

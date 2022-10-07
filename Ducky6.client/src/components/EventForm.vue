@@ -9,76 +9,98 @@
   >
     <div class="modal-dialog modal-lg">
       <div class="modal-content bg-dark">
-        <div class="modal-body FORM animate__flipInY animate__animated">
+        <div class="modal-body FORM animate__fadeIn animate__animated">
           <!-- -------------------SECTION FORM----------------------------------- -->
           <form @submit.prevent="createEvent()" class="">
             <div class="row">
               <div class="col-md-6">
                 <div class="inputBox mt-2">
-                  <input type="text" class="" v-model="editable.name" required aria-required="true"/>
+                  <input
+                    type="text"
+                    class=""
+                    v-model="editable.name"
+                    required
+                    aria-required="true"
+                    aria-label="name"
+                  />
                   <span>Name of Event</span>
                 </div>
                 <div class="inputBox my-4">
-                  <input type="number" class="" v-model="editable.capacity"  required aria-required="true" />
-                  
+                  <input
+                    type="number"
+                    class=""
+                    v-model="editable.capacity"
+                    required
+                    aria-required="true"
+                    aria-label="capacity"
+                  />
+
                   <span>Capacity</span>
                 </div>
 
                 <div class="inputBox mt-2">
                   <input
                     type="text"
-                    placeholder="location"
-                    class=""
                     v-model="editable.location"
                     required
                     aria-required="true"
+                    aria-label="location"
                   />
                   <span>Location</span>
                 </div>
-                <!-- <div class="inputBox mt-2">
-                  <input
-                    type="text"
-                    placeholder="type"
-                    class=""
-                    v-model="editable.type"
-                  />
-                  <span>Type of Event</span>
-                </div> -->
-                <div class="input-group inputBox mb-3">
-  <label class="input-group-text" for="inputGroupSelect01">Type Of Event</label>
-  <select class="form-select " id="inputGroupSelect01" required aria-required="true" v-model="editable.type">
-    
-    <option selected="convention">convention</option>
-    <option  value="concert">concert</option>
-    <option value="digital">digital</option>
-    <option value="sport">sport</option>
-  </select>
-</div>
 
+                <div class="input-group inputBox mb-3">
+                  <label class="input-group-text" for="inputGroupSelect01"
+                    >Type Of Event</label
+                  >
+                  <select
+                    class="form-select"
+                    id="inputGroupSelect01"
+                    required
+                    aria-required="true"
+                    v-model="editable.type"
+                    aria-label="type"
+                  >
+                    <option selected="convention">convention</option>
+                    <option value="concert">concert</option>
+                    <option value="digital">digital</option>
+                    <option value="sport">sport</option>
+                  </select>
+                </div>
               </div>
 
               <div class="col-md-6">
                 <div class="inputBox mt-2">
                   <input
-                    type="text"
-                    class=""
-                    min="9999"
+                    aria-label="coverImage"
+                    aria-required="false"
+                    type="url"
                     v-model="editable.coverImg"
                   />
                   <span>coverImg</span>
                 </div>
                 <div class="mt-4">
-                       <img :src="editable.coverImg" alt="" class="smallerImg">
+                  <img
+                    :src="editable.coverImg"
+                    alt="coverImg"
+                    class="smallerImg"
+                    aria-label="coverImage"
+                    aria-required="false"
+                  />
                 </div>
               </div>
               <div class="col-md-6">
-              
                 <div class="mt-3 inputBox">
-                  <input type="datetime-local" required aria-required="true" v-model="editable.startDate" />
+                  <input
+                    type="datetime-local"
+                    required
+                    aria-required="true"
+                    v-model="editable.startDate"
+                    aria-label="startDate"
+                  />
                   <span>StartDate</span>
                 </div>
               </div>
-              
             </div>
 
             <div class="inputBox2 mt-2">
@@ -92,17 +114,23 @@
             </div>
 
             <div class="my-3">
-              <button class="btn selectable text-light img-shadow " type="submit" aria-label="submit" data-bs-dismiss="modal">
-                <img src="https://cdn-icons-png.flaticon.com/512/8632/8632120.png" alt="" width="75" height="75">
-               Create Event
+              <button
+                class="btn selectable text-light img-shadow"
+                type="submit"
+                aria-label="submit"
+                data-bs-dismiss="modal"
+              >
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/8632/8632120.png"
+                  alt=""
+                  width="75"
+                  height="75"
+                />
+                Create Event
               </button>
-            
             </div>
           </form>
         </div>
-
-        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button > -->
-        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div>
   </div>
@@ -110,16 +138,16 @@
 
 <script>
 import { computed, ref, watchEffect } from 'vue';
-import { useRouter } from "vue-router";
+import { useRouter } from 'vue-router';
 import { AppState } from '../AppState';
 import { accountService } from '../services/AccountService.js';
 import { eventsService } from '../services/EventsService.js';
-import { ticketsService } from "../services/TicketsService.js";
+import { ticketsService } from '../services/TicketsService.js';
 import Pop from '../utils/Pop.js';
 export default {
   setup() {
     const editable = ref({});
-   const router = useRouter()
+    const router = useRouter();
     return {
       editable,
 
@@ -128,8 +156,9 @@ export default {
       async createEvent() {
         try {
           await eventsService.createEvent(editable.value);
-       
+
           Pop.success('Event Approved');
+          editable.value = {}
         } catch (error) {
           Pop.error('[creatorEvent]');
         }
@@ -153,8 +182,8 @@ export default {
   height: 200px;
   width: 375px;
   object-fit: cover;
-    border: dashed 4px rgb(146, 197, 245);
-      border-radius: 4px;
+  border: dashed 4px rgb(146, 197, 245);
+  border-radius: 4px;
 }
 
 .form-Banner {
