@@ -5,7 +5,7 @@
   <main class=" ">
     
     <SideBar class="sideBar" />
-    <div :style="{'margin-left' : sidebarWidth}"  >
+    <div :style="{'margin-left' : sidebarWidth}"  class="" >
 
       <router-view />
     </div>
@@ -64,6 +64,9 @@ export default {
 }
 
 
-
-
+@media screen and (max-width:760px){
+  .sidebar{
+margin-left: -251px;
+  }
+}
 </style>

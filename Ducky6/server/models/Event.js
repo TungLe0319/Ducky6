@@ -28,8 +28,7 @@ minlength: 3,
     },
     capacity: {
       type: Number,
-   
-      max:100,
+   required: true
     },
     startDate: {
       type: Date,

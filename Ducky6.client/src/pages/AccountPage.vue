@@ -2,7 +2,7 @@
   <div class="text-center accountPage text-light container-fluid">
     <div class="container">
          <div class="col-md-5 text-start my-4">
-        <h4 class="text-success lighten-20">Events I'm Hosting</h4>
+        <h4 class="text-success lighten-20">My Events</h4>
       </div>
       <div class="row horizontal-scrollable">
         

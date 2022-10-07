@@ -82,14 +82,7 @@
           </div>
         </div>
         <div class="d-flex justify-content-between" v-else>
-          <img
-            src="https://sassypecan.com/wp-content/uploads/2018/12/sold-out.jpg"
-            alt=""
-            width="150"
-            height="100"
-            class="rounded box-shadow2"
-          />
-          <button
+             <button
             v-if="ticketOwner"
             class="btn p-0 px-1 removeTicket"
             @click="removeTicket()"
@@ -104,6 +97,14 @@
               title="Remove Ticket"
             />
           </button>
+          <img
+            src="https://sassypecan.com/wp-content/uploads/2018/12/sold-out.jpg"
+            alt=""
+            width="150"
+            height="100"
+            class="rounded box-shadow2"
+          />
+       
         </div>
       </div>
       <div class="p-2 d-flex">

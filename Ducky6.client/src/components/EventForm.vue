@@ -31,6 +31,8 @@
                     class=""
                     v-model="editable.capacity"
                     required
+                    min="1"
+                    max="100"
                     aria-required="true"
                     aria-label="capacity"
                   />
