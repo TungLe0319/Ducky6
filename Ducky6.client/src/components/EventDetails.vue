@@ -8,7 +8,7 @@
           @click.prevent="removeEvent()"
           aria-label="remove Event"
           title="remove Event"
-          class="mdi mdi-cancel fs-1 cancelBtn"
+          class="mdi mdi-cancel  fs-1 cancelBtn"
         ></i>
       </div>
       <div class="col-md-3">
@@ -119,8 +119,8 @@
         </span>
       </div>
     </div>
-    <div class="row">
-      <span class="text-shadow"><h6>See Whos Attending:</h6></span>
+    <div class="row my-2">
+      <span class="text-shadow"><h6>See Who's Attending</h6></span>
       <div class="col-md-1 bg-primary"></div>
     </div>
   </div>

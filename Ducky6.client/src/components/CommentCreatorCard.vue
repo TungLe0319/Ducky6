@@ -1,4 +1,5 @@
 <template>
+  
   <div class="ticket-holders d-flex  p-md-2 my-2 " v-if="comment">
     
 <div class="flex-column d-flex justify-content-center">

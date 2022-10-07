@@ -14,7 +14,9 @@
       <div class="col-md-10 my-3 d-flex justify-content-center">
         <CommentForm />
       </div>
+      <div class="col-md-6">  <span class="text-shadow"><h6>What The People Are Saying</h6></span></div>
       <div class="col-md-8 my-sm-4 bg-secondary box-shadow2 " >
+   
         <CommentCreatorCard
           :comment="c"
           v-for="c in comments"
