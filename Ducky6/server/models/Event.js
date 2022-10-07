@@ -6,19 +6,20 @@ export const EventSchema = new Schema(
   {
     name: {
       type: String,
-
+minlength: 3,
       required: true,
     },
 
     description: {
       type: String,
+      minlength:5,
       required: true,
     },
     coverImg: {
       type: String,
       default:
         'https://codeworks.blob.core.windows.net/media/mark.ohnsman__QGdtYWlsLmNvbQ==/giraffe.jpeg',
-      required: true,
+   
     },
     location: {
       type: String,
@@ -28,7 +29,7 @@ export const EventSchema = new Schema(
     capacity: {
       type: Number,
    
-      default: 100,
+      max:100,
     },
     startDate: {
       type: Date,

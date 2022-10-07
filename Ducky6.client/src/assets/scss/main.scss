@@ -16,6 +16,9 @@ body{
   min-height: 100vh;
   background-color: #2a2d3a
 }
+button{
+  transition:  0.3s ease;
+}
 
 main {
   flex-grow: 1;

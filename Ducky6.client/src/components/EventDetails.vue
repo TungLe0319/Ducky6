@@ -6,19 +6,21 @@
       <div v-if="event.creator.id == account.id" class="text-end">
         <i
           @click.prevent="removeEvent()"
+          aria-label="remove Event"
+          title="remove Event"
           class="mdi mdi-cancel fs-1 cancelBtn"
         ></i>
       </div>
       <div class="col-md-3">
         <img
           :src="event.coverImg"
-          alt=""
+          :alt="event.name"
           class="forcedImg img-shadow rounded"
         />
       </div>
 
       <div
-        class="col-md-7 flex-wrap description p-3  mb-3 elevation-5 d-flex flex-column justify-content-around"
+        class="col-md-7 flex-wrap description p-3 mb-3 elevation-5 d-flex flex-column justify-content-around"
       >
         <div class="d-flex justify-content-between text-shadow">
           <p>{{ event.name }}</p>
@@ -27,14 +29,16 @@
         <div class="d-flex justify-content-between text-shadow">
           <p class="text-primary">{{ event.location }}</p>
           <p class="text-warning lighten-10">
-            {{ new Date(event.startDate).toLocaleDateString('en-US', {
-      year: '2-digit',
-      month: '2-digit',
-      day: '2-digit',
-      hour:'2-digit',
-      weekday:'long',
-      minute:'2-digit'
-    }) }}
+            {{
+              new Date(event.startDate).toLocaleDateString('en-US', {
+                year: '2-digit',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                weekday: 'long',
+                minute: '2-digit',
+              })
+            }}
           </p>
         </div>
         <div class="text-start">
@@ -43,13 +47,13 @@
           </p>
         </div>
         <!-- -------------------------------------------------- CONDITIONAL RENDER -->
-        <div class="d-flex justify-content-between" v-if="event.capacity > 0 ">
-          <p>
-            <b class="text-warning lighten-10 fs-3                                  "> {{ event.capacity }} </b> spots
-            left
-          </p> 
+        <div class="d-flex justify-content-between" v-if="event.capacity > 0">
+          <p class="animate__animated animate__bounceIn">
+            <b class="text-warning lighten-10 fs-3 "> {{ event.capacity }} </b>
+            spots left
+          </p>
           <button
-            class="btn text-light joinBtn"
+            class="btn text-light joinBtn animate__animated animate__bounceIn"
             v-if="!ticketOwner"
             @click="createTicket()"
           >
@@ -64,7 +68,7 @@
             />
           </button>
           <div v-else>
-            <button class="btn p-0 px-1 removeTicket" @click="removeTicket()">
+            <button class="btn p-0 px-1 removeTicket animate__animated animate__bounceIn" @click="removeTicket()">
               <img
                 src="https://cdn-icons-png.flaticon.com/512/2942/2942934.png"
                 class="ticketImg"
@@ -90,15 +94,15 @@
             class="btn p-0 px-1 removeTicket"
             @click="removeTicket()"
           >
-          <img
-                src="https://cdn-icons-png.flaticon.com/512/2942/2942934.png"
-                class="ticketImg"
-                alt=""
-                width="75"
-                height="75"
-                aria-label="removeTicket"
-                title="Remove Ticket"
-              />
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/2942/2942934.png"
+              class="ticketImg"
+              alt=""
+              width="75"
+              height="75"
+              aria-label="removeTicket"
+              title="Remove Ticket"
+            />
           </button>
         </div>
       </div>
@@ -106,11 +110,11 @@
         <img
           :src="event.creator.picture"
           alt=""
-          class="img-shadow picture rounded-circle"
+          class="img-shadow picture rounded-circle animate__animated animate__bounceIn"
           :title="event.creator.name"
         />
         <span class="d-flex justify-content-end align-items-end ms-3">
-          <small>Event Creator</small>
+          <small class="text-shadow">Event Creator</small>
         </span>
       </div>
     </div>
@@ -135,7 +139,7 @@ import Pop from '../utils/Pop.js';
 
 export default {
   props: {
-    event: { type:Object, required: true },
+    event: { type: Object, required: true },
   },
   setup(props) {
     const route = useRoute();
@@ -177,7 +181,10 @@ export default {
       async removeTicket() {
         try {
           // console.log(this.ticketOwner.id);
-          const yes = await Pop.confirm('Are You Sure You Want To Give Up This Ticket?','Theres a chance someone will take this ticket and sell out the event.');
+          const yes = await Pop.confirm(
+            'Are You Sure You Want To Give Up This Ticket?',
+            'Theres a chance someone will take this ticket and sell out the event.'
+          );
           if (!yes) {
             return;
           }
@@ -203,7 +210,6 @@ export default {
       },
     };
   },
-
 };
 </script>
 

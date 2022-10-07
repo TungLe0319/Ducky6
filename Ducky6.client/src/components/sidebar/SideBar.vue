@@ -17,11 +17,11 @@
           : ''
       "
     >
-      <SideBarLink to="/" icon="mdi mdi-home fs-2" class="text-shadow"
+      <SideBarLink to="/" icon="mdi mdi-home fs-2" class="text-shadow" aria-label="Home" title="Home Button"
         >Home</SideBarLink
       >
 
-      <SideBarLink to="/account" icon="mdi mdi-account fs-2" class="text-shadow"
+      <SideBarLink to="/account" icon="mdi mdi-account fs-2" class="text-shadow" aria-label="Account" title="Account"
         >Account</SideBarLink
       >
     </div>
@@ -32,6 +32,8 @@
         class="btn p-0 "
         data-bs-toggle="modal"
         data-bs-target="#formModal"
+        aria-label="Create An Event"
+        
       >
         <i class="mdi mdi-ticket  text-shadow "  :class="collapsed? 'fs-4 flex-column justify-content-center d-flex align-items-center ':'fs-1 '" ></i>
       </button>

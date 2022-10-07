@@ -1,9 +1,9 @@
 <template>
-  <div class="ticket-holders d-flex  p-md-2 my-2 ">
+  <div class="ticket-holders d-flex  p-md-2 my-2 " v-if="comment">
     
 <div class="flex-column d-flex justify-content-center">
 
-  <img  :src="comment.creator.picture" alt="" width="75" height="75" class="rounded-circle p-1 box-shadow2">
+  <img  :src="comment.creator.picture" :alt="comment.creator.name" width="75" height="75" class="rounded-circle p-1 box-shadow2 pictureHover">
 </div>
   <div class=" ms-3 commentBodyBg text-dark card p-2 flex-column d-flex justify-content-center w-100 box-shadow2">
     <p>  <b class="ps-md-3">{{comment.creator.name}} {{}}   </b></p>
@@ -42,7 +42,7 @@ comment:{required:true}
 creator:computed(()=> props.comment.creator.id == AppState.account.id),
 async removeComment(){
   try {
-    const yes = await Pop.confirm()
+    const yes = await Pop.confirm('Delete Your Comment?')
           if (!yes) {
             return
           }
@@ -75,4 +75,12 @@ async removeComment(){
   background-color: #e2f9ff;
 }
 
+.pictureHover{
+  transition: all 0.75s ease;
+}
+.pictureHover:hover{
+transform: scale(1.1);
+transition: all 0.5s ease-in-out;
+
+}
 </style>

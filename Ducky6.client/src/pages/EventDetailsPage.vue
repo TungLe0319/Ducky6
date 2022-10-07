@@ -11,10 +11,10 @@
         <TickerHolders v-for="t in tickets" :ticket="t" :key="t.id" />
       </div>
 
-      <div class="col-md-10 my-3">
+      <div class="col-md-10 my-3 d-flex justify-content-center">
         <CommentForm />
       </div>
-      <div class="col-md-8 my-sm-4 bg-secondary box-shadow2 p-1">
+      <div class="col-md-8 my-sm-4 bg-secondary box-shadow2 " >
         <CommentCreatorCard
           :comment="c"
           v-for="c in comments"

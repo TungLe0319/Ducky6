@@ -14,6 +14,7 @@
               class="rounded bg-dark text-light"
               required
               aria-required="true"
+              title="Comment Body"
             ></textarea>
 
             <button  type="submit" class="btn btn-warning">Post Comment</button>
@@ -67,6 +68,18 @@ user:computed(()=> AppState.user),
   letter-spacing: 0.08rem;
   /* Second Color  in text-shadow is the blur */
 }
+
+textarea::placeholder{
+  color: rgb(215, 220, 225);
+  font-size: 45pt;
+  letter-spacing: 0.1em;
+  justify-content: center;
+  display: flex;
+  padding-left: 0.50em;
+
+}
+
+
 .forcedImg {
   height: 300px;
   width: 300px;

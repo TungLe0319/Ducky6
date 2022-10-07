@@ -10,20 +10,19 @@
         class="p-2 cardBody text-light text-shadow text-wrap d-flex flex-column justify-content-between"
       >
         <span class=""
-          ><h5 class="text-primary lighten-30">{{ event.name }}</h5></span
+          ><h6 class="text-primary lighten-30">{{ event.name }}</h6></span
         >
         <span
-          ><p class="text-primary lighten-20">{{ event.location }}</p></span
+          ><small class="text-primary lighten-20">{{ event.location }}</small></span
         >
         <span
-          ><p class="text-primary lighten-20">
+          class="mt-1" ><p class="text-warning lighten-20">
             {{ event.startDate }}
           </p></span
         >
-        <span class="">
-          <p class="text-success">{{ event.capacity }} spots left</p>
-        </span>
-        <div class="text-end">
+        <span class="d-flex justify-content-between">
+          <p class="text-warning">{{ event.capacity }}  <small class="text-light "> spots left</small></p>
+           <div class="text-end">
           <i
             class="mdi mdi-chip fs-4 text-shadow"
             v-if="event.type == 'digital'"
@@ -49,6 +48,8 @@
           >
           </i>
         </div>
+        </span>
+       
       </div>
     </div>
   </router-link>
