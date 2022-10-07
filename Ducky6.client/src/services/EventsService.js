@@ -1,10 +1,10 @@
-import { useRouter } from 'vue-router';
+
 import { AppState } from '../AppState.js';
-import { Account } from '../models/Account.js';
+
 import { Comment } from '../models/Comment.js';
 import { Event } from '../models/Event.js';
 import { Ticket } from '../models/Ticket.js';
-import { router } from '../router.js';
+
 import { api } from './AxiosService.js';
 
 class EventsService {
@@ -52,7 +52,7 @@ class EventsService {
     AppState.events = [event, ...AppState.events];
     AppState.activeEvent = event;
 
-    router.push({ name: 'EventDetails', params: { eventId: event.id } });
+    // router.push({ name: 'EventDetails', params: { eventId: event.id } });
   
   }
 

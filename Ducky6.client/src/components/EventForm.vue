@@ -15,11 +15,12 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="inputBox mt-2">
-                  <input type="text" class="" v-model="editable.name" />
+                  <input type="text" class="" v-model="editable.name" required aria-required="true"/>
                   <span>Name of Event</span>
                 </div>
                 <div class="inputBox my-4">
-                  <input type="number" class="" v-model="editable.capacity" />
+                  <input type="number" class="" v-model="editable.capacity"  required aria-required="true" />
+                  
                   <span>Capacity</span>
                 </div>
 
@@ -29,6 +30,8 @@
                     placeholder="location"
                     class=""
                     v-model="editable.location"
+                    required
+                    aria-required="true"
                   />
                   <span>Location</span>
                 </div>
@@ -43,7 +46,7 @@
                 </div> -->
                 <div class="input-group inputBox mb-3">
   <label class="input-group-text" for="inputGroupSelect01">Type Of Event</label>
-  <select class="form-select " id="inputGroupSelect01"  v-model="editable.type">
+  <select class="form-select " id="inputGroupSelect01" required aria-required="true" v-model="editable.type">
     
     <option selected="convention">Convention</option>
     <option  value="concert">Concert</option>
@@ -69,9 +72,9 @@
                 </div>
               </div>
               <div class="col-md-6">
-                <div>IMG HERE MAYBE</div>
+              
                 <div class="mt-3 inputBox">
-                  <input type="date" class=" " v-model="editable.startDate" />
+                  <input type="date" required aria-required="true" v-model="editable.startDate" />
                   <span>StartDate</span>
                 </div>
               </div>
@@ -83,20 +86,22 @@
                 class="mt-2"
                 rows="5"
                 v-model="editable.description"
+                aria-label="description"
               ></textarea>
               <span>Description</span>
             </div>
 
             <div class="my-3">
-              <button class="btn selectable text-light img-shadow " type="submit">
+              <button class="btn selectable text-light img-shadow " type="submit" aria-label="submit" data-bs-dismiss="modal">
                 <img src="https://cdn-icons-png.flaticon.com/512/8632/8632120.png" alt="" width="75" height="75">
                Create Event
               </button>
+            
             </div>
           </form>
         </div>
 
-        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button > -->
         <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div>
@@ -123,9 +128,7 @@ export default {
       async createEvent() {
         try {
           await eventsService.createEvent(editable.value);
-          // router.push({name:'EventDetails', params: {id: AppState.activeEvent.eventId}})
-// router.push(`/events/`)
-// await ticketsService.createTicket()
+       
           Pop.success('Event Approved');
         } catch (error) {
           Pop.error('[creatorEvent]');
@@ -212,7 +215,7 @@ export default {
   pointer-events: none;
   font-size: 1em;
   text-transform: uppercase;
-  color: #f1ecf180;
+  color: #f1ecf1eb;
   transition: all 1s ease;
 }
 .inputBox2 textarea:valid ~ span,
@@ -251,12 +254,12 @@ export default {
 .inputBox span {
   position: absolute;
   left: 0;
-  bottom: 3em;
+  bottom: 2.25em;
   padding: 10px;
   pointer-events: none;
   font-size: 1em;
   text-transform: uppercase;
-  color: #f1ecf180;
+  color: #f1ecf1dd;
   transition: all 1s ease;
 }
 .inputBox input:valid ~ span,

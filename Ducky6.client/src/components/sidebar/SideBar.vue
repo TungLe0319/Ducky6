@@ -149,7 +149,7 @@ export default {
 .pointer {
   cursor: pointer;
 }
-@media screen and (max-width: 860px) {
+@media screen and (max-width: 960px) {
   .collapse-icon {
     position: relative;
   }

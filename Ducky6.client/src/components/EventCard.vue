@@ -1,12 +1,12 @@
 <template>
-  <router-link :to="{ name: 'EventDetails', params: { id: event.id } }">
+  <router-link :to="{ name: 'EventPage', params: { id: event.id } }">
     <div
       :class="getRandomBorder()"
       class="event-Card elevation-5 card my-3 mx-2 border-3 border d-flex flex-column justify-content-end"
       :style="{ backgroundImage: `url(${event?.coverImg})` }"
     >
       <div
-        :class="event.capacity <= 0 ? 'bg-danger ' : ''"
+        :class="event.capacity <= 0 ? 'bg-danger opacity-50' : ''"
         class="p-2 cardBody text-light text-shadow text-wrap d-flex flex-column justify-content-between"
       >
         <span class=""
@@ -98,6 +98,8 @@ export default {
 }
 
 .event-Card {
+  background-size: cover;
+  background-position: center;
   height: 300px;
   box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px,
     rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px,

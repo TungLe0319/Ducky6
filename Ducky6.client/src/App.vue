@@ -2,7 +2,8 @@
   <header>
     <Navbar />
   </header>
-  <main class=" container-sm ">
+  <main class=" ">
+    
     <SideBar  />
     <div :style="{'margin-left' : sidebarWidth}" class="" >
 

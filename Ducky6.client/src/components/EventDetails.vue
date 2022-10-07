@@ -6,10 +6,10 @@
       <div v-if="event.creator.id == account.id" class="text-end">
         <i
           @click.prevent="removeEvent()"
-          class="mdi mdi-cancel fs-1 img-shadow  cancelBtn"
+          class="mdi mdi-cancel fs-1 img-shadow cancelBtn"
         ></i>
       </div>
-      <div class="col-md-3 p-4">
+      <div class="col-md-3">
         <img
           :src="event.coverImg"
           alt=""
@@ -18,7 +18,7 @@
       </div>
 
       <div
-        class="col-md-8 flex-wrap description mb-3 elevation-5 d-flex flex-column justify-content-around"
+        class="col-md-7 flex-wrap description mb-3 elevation-5 d-flex flex-column justify-content-around"
       >
         <div class="d-flex justify-content-between text-shadow">
           <p>{{ event.name }}</p>
@@ -35,32 +35,32 @@
             {{ event.description }}
           </p>
         </div>
-<!-- -------------------------------------------------- CONDITIONAL RENDER -->
-  <div class="d-flex justify-content-between" v-if="event.capacity > 0" >
+        <!-- -------------------------------------------------- CONDITIONAL RENDER -->
+        <div class="d-flex justify-content-between" v-if="event.capacity > 0">
           <p>{{ event.capacity }} spots left</p>
-          <button class="btn btn-warning" @click="createTicket()">
+          <button class="btn btn-warning"  @click="createTicket()">
             Attend <i class="mdi mdi-account fs-3"></i>
           </button>
-            <button
-         
-            class="btn btn-danger removeTicket"
-            @click="removeTicket()"
-          >
+          <button class="btn btn-danger removeTicket" @click="removeTicket()">
             removeTicket
           </button>
         </div>
         <div v-else>
-<img src="https://sassypecan.com/wp-content/uploads/2018/12/sold-out.jpg" alt="" width="300" height="300" class="rounded img-shadow">
-  <button
-         v-if="event.capacity >0"
+          <img
+            src="https://sassypecan.com/wp-content/uploads/2018/12/sold-out.jpg"
+            alt=""
+            width="150"
+            height="100"
+            class="rounded box-shadow2"
+          />
+          <button
+            v-if="ticketOwner"
             class="btn btn-danger removeTicket"
             @click="removeTicket()"
           >
             removeTicket
           </button>
         </div>
-       
-      
       </div>
       <div class="p-2 d-flex">
         <img
@@ -69,7 +69,9 @@
           class="img-shadow picture rounded-circle"
           :title="event.creator.name"
         />
-        <span class="d-flex justify-content-end align-items-end ms-3">  <small>Event Creator</small> </span>
+        <span class="d-flex justify-content-end align-items-end ms-3">
+          <small>Event Creator</small>
+        </span>
       </div>
     </div>
     <div class="row">
@@ -105,23 +107,21 @@ export default {
       comments: computed(() => AppState.comments),
       creator: computed(() => AppState.account),
       account: computed(() => AppState.user),
-      tickets:computed(() => AppState.tickets),
+      tickets: computed(() => AppState.tickets),
       // hasTicket: computed(() =>
       //   AppState.tickets.find((t) => (t.accountId == AppState.account.id))
       // ),
 
-ticketOwner:computed(()=> AppState.tickets.find(t=> t.profile.id == AppState.account.id)),
-
-
-
-
+      ticketOwner: computed(() =>
+        AppState.tickets.find((t) => t.profile.id == AppState.account.id)
+      ),
 
       async createTicket() {
         try {
           if (!AppState.account.id) {
             return AuthService.loginWithRedirect();
           }
-          if (this.hasTicket) {
+          if (this.ticketOwner) {
             Pop.error('You Already Have One');
             return;
           }
@@ -134,35 +134,33 @@ ticketOwner:computed(()=> AppState.tickets.find(t=> t.profile.id == AppState.acc
         }
       },
 
-async removeTicket(){
-try {
-  // console.log(this.ticketOwner.id);
-const yes = await Pop.confirm()
-      if (!yes) {
-        return
-      }
-    await  ticketsService.removeTicket(this.ticketOwner.id)
-    Pop.success()
-  } catch (error) {
-    Pop.error(error,'[remove Ticket]')
-  }
-},
+      async removeTicket() {
+        try {
+          // console.log(this.ticketOwner.id);
+          const yes = await Pop.confirm();
+          if (!yes) {
+            return;
+          }
+          await ticketsService.removeTicket(this.ticketOwner.id);
+          Pop.success();
+        } catch (error) {
+          Pop.error(error, '[remove Ticket]');
+        }
+      },
 
-// async removeTicket(){
-//   try {
-//     const yes = await Pop.confirm('Are You Sure You Want To Give Up this Ticket?')
-//           if (!yes) {
-//             return
-//           }
-  
+      // async removeTicket(){
+      //   try {
+      //     const yes = await Pop.confirm('Are You Sure You Want To Give Up this Ticket?')
+      //           if (!yes) {
+      //             return
+      //           }
 
-//     await accountService.removeMyTicket(props.ticket.id)
-//       Pop.success('Returned Ticket For The Event')
-//     } catch (error) {
-//       Pop.error(error,'[removeTicket]')
-//     }
-// }
-
+      //     await accountService.removeMyTicket(props.ticket.id)
+      //       Pop.success('Returned Ticket For The Event')
+      //     } catch (error) {
+      //       Pop.error(error,'[removeTicket]')
+      //     }
+      // }
 
       async removeEvent() {
         try {
@@ -192,8 +190,8 @@ const yes = await Pop.confirm()
   /* Second Color  in text-shadow is the blur */
 }
 .forcedImg {
-  height: 300px;
-  width: 300px;
+  height: 250px;
+  width: 250px;
   object-fit: cover;
   border: 10px solid rgba(255, 255, 255, 0.086);
   backdrop-filter: blur(5px);
@@ -219,18 +217,17 @@ const yes = await Pop.confirm()
   backdrop-filter: blur(5px);
 }
 
-.cancelBtn{
+.cancelBtn {
   cursor: pointer;
-
 }
 
-.cancelBtn:hover{
-transform: scale(1.14);
-color: red;
-transition:  0.75s ease;
+.cancelBtn:hover {
+  transform: scale(1.14);
+  color: red;
+  transition: 0.75s ease;
 }
 
-.removeTicket{
+.removeTicket {
   transition: 0.72 ease;
 }
 </style>

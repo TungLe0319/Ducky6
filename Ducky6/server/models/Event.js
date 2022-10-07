@@ -27,7 +27,7 @@ export const EventSchema = new Schema(
     },
     capacity: {
       type: Number,
-      min: 10,
+   
       default: 100,
     },
     startDate: {

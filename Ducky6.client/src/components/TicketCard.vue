@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ name: 'EventDetails', params: { eventId: ticket.event.id} }">
+  <router-link :to="{ name: 'EventPage', params: { id: ticket.event.id} }">
 
     <div class="row justify-content-center ">
     

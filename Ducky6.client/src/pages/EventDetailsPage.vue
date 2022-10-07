@@ -1,15 +1,16 @@
 <template>
   <div class="Event-Details container-fluid" v-if="event">
     <div class="row justify-content-center">
+      
       <div class="col-md-11 animate__lightSpeedInRight animate__animated d-flex ">
         <EventDetails :event="event" :account="account" />
       </div>
-      <div class="col-md-10 bg-secondary d-flex box-shadow2" v-if="tickets">
+      <div class="col-md-10 bg-secondary d-flex flex-wrap box-shadow2" v-if="tickets">
         <TickerHolders v-for="t in tickets" :ticket="t" :key="t.id" />
       </div>
 
       <div class="col-md-10 my-3">
-        <!-- <CommentsBox  :comment="comments  " :profile="profiles" /> -->
+   
         <CommentForm />
       </div>
       <div class="col-md-8 my-sm-4 bg-secondary box-shadow2 ">
@@ -61,19 +62,11 @@ export default {
       }
     }
 
-    // async function getComments() {
-    //   try {
-    //     await commentsService.getComments();
-    //   } catch (error) {
-    //     Pop.error(error, '[getComments]');
-    //   }
-    // }
-
     onMounted(() => {
       getEventDetailsById();
       getCommentsByEventId();
       getTicketHoldersByEventId();
-      // getComments();
+     
     });
 
     return {

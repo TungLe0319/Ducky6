@@ -5,22 +5,16 @@
         <HomePageBanner />
       </div>
       <div class="col-md-12">
-        <!-- <div class="bg-secondary p-2 rounded mt-3 box-shadow2">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Search By Name..."
-            v-model="editable"
-          />
-        </div> -->
+      
         <div class="d-flex justify-content-around my-3 bg-secondary p-2 rounded box-shadow2">
-          <button @click="getEventsByType('') " class="btn btn-outline-warning ">
+          <button @click="getEventsByType('') " class="btn btn-outline-warning " aria-label="getEventsByType">
             All
           </button>
           <button
             @click="getEventsByType('concert') "
             class="btn btn-outline-warning"
             id="filterBtn"
+            aria-label="getEventsByType"
           >
             Concert
           </button>
@@ -28,6 +22,7 @@
             @click="getEventsByType('convention')"
             class="btn btn-outline-warning"
                   id="filterBtn"
+                     aria-label="getEventsByType"
           >
             Convention
           </button>
@@ -35,6 +30,7 @@
             @click="getEventsByType('sport')"
             class="btn btn-outline-warning"
                   id="filterBtn"
+                     aria-label="getEventsByType"
           >
             Sport
           </button>
@@ -42,6 +38,7 @@
             @click="getEventsByType('digital')"
             class="btn btn-outline-warning"
                   id="filterBtn"
+                     aria-label="getEventsByType"
           >
             Digital
           </button>
