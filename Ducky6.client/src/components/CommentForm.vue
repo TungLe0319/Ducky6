@@ -58,6 +58,7 @@ export default {
         try {
           editable.value.eventId = AppState.activeEvent.id;
           await commentsService.createComment(editable.value);
+          editable.value = {} //NOTE form reset
         } catch (error) {
           Pop.error(error, '[addComment]');
         }

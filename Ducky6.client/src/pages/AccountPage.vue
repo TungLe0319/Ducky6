@@ -5,7 +5,7 @@
         <img
           src="../assets/img/Logo.svg"
           alt=""
-          class="img-shadow p-2 rounded"
+          class="box-shadow rounded"
           width="400"
           height="50"
         />
@@ -88,6 +88,7 @@ export default {
   overflow-x: auto;
   white-space: nowrap;
   scroll-behavior: smooth;
+
 }
  .animate__animated.animate__lightSpeedInRight{
   --animate-duration:1s

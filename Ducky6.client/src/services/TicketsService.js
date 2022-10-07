@@ -14,12 +14,15 @@ class TicketsService {
     const res = await api.post('/api/tickets', eventData);
     const ticketHolder = res.data;
     AppState.tickets.push(ticketHolder);
+
+    AppState.activeEvent.capacity--
   }
 
   async removeTicket(ticketId) {
     const res = await api.delete(`api/tickets/${ticketId}`);
   
     AppState.tickets = AppState.tickets.filter((t) => t.id != ticketId);
+    AppState.activeEvent.capacity++
 
   }
 

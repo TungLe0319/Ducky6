@@ -27,7 +27,7 @@ class AccountService {
   async getMyTickets() {
     try {
       const res = await api.get('/account/tickets');
-      // console.log(res.data);
+      console.log(res.data);
       AppState.myTickets = res.data.map((t) => new Ticket(t));
       // console.log(AppState.myTickets);
       // AppState.myTickets = [...AppState.myTickets, new Ticket(res.data)];

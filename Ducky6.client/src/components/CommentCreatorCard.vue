@@ -42,6 +42,10 @@ comment:{required:true}
 creator:computed(()=> props.comment.creator.id == AppState.account.id),
 async removeComment(){
   try {
+    const yes = await Pop.confirm()
+          if (!yes) {
+            return
+          }
       await commentsService.removeComment(props.comment.id)
     } catch (error) {
       Pop.error(error,'[deleteComment]')

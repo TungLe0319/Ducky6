@@ -38,7 +38,7 @@ export default {
 
     async function getEventDetailsById() {
       try {
-        await eventsService.getEventById(route.params.eventId);
+        await eventsService.getEventById(route.params.id);
       } catch (error) {
         Pop.error(error, '[getEventDetailsById]');
       }
@@ -46,7 +46,7 @@ export default {
 
     async function getCommentsByEventId() {
       try {
-        await eventsService.getCommentsByEventId(route.params.eventId);
+        await eventsService.getCommentsByEventId(route.params.id);
         console.log(route.params.eventId);
       } catch (error) {
         Pop.error(error, '[getCommentsByEventId]');
@@ -55,7 +55,7 @@ export default {
 
     async function getTicketHoldersByEventId() {
       try {
-        await eventsService.getTicketsByEventId(route.params.eventId);
+        await eventsService.getTicketsByEventId(route.params.id);
       } catch (error) {
         Pop.error(error, '[getTicketHoldersByEventId]');
       }

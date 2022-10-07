@@ -5,39 +5,43 @@
         <HomePageBanner />
       </div>
       <div class="col-md-12">
-        <div class="bg-secondary p-2 rounded mt-3 box-shadow2">
+        <!-- <div class="bg-secondary p-2 rounded mt-3 box-shadow2">
           <input
             type="text"
             class="form-control"
             placeholder="Search By Name..."
             v-model="editable"
           />
-        </div>
+        </div> -->
         <div class="d-flex justify-content-around my-3 bg-secondary p-2 rounded box-shadow2">
-          <button @click="getEventsByType('')" class="btn btn-outline-warning">
+          <button @click="getEventsByType('') " class="btn btn-outline-warning ">
             All
           </button>
           <button
             @click="getEventsByType('concert') "
             class="btn btn-outline-warning"
+            id="filterBtn"
           >
             Concert
           </button>
           <button
             @click="getEventsByType('convention')"
             class="btn btn-outline-warning"
+                  id="filterBtn"
           >
             Convention
           </button>
           <button
             @click="getEventsByType('sport')"
             class="btn btn-outline-warning"
+                  id="filterBtn"
           >
             Sport
           </button>
           <button
             @click="getEventsByType('digital')"
             class="btn btn-outline-warning"
+                  id="filterBtn"
           >
             Digital
           </button>
@@ -78,10 +82,12 @@ export default {
     });
     return {
       editable,
-      events: computed(() => AppState.events.filter(a => a.name.toUpperCase().includes(editable.value.toUpperCase()))),
-
-      async getEventsByType(type,event) {
+      // events: computed(() => AppState.events.filter(a => a.name.toUpperCase().includes(editable.value.toUpperCase()))),
+events : computed(() => AppState.events),
+      async getEventsByType(type) {
         try {
+         
+          // document.getElementById(event.target.id).classList.toggle('active')
           await eventsService.getEvents(type);
        
         } catch (error) {
@@ -94,4 +100,11 @@ export default {
 };
 </script>
 
-<style scoped lang="scss"></style>
+
+
+<style scoped lang="scss">
+button:active{
+  background-color: red;
+}
+
+</style>

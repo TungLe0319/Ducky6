@@ -1,10 +1,10 @@
-import { useRouter } from "vue-router";
+import { useRouter } from 'vue-router';
 import { AppState } from '../AppState.js';
 import { Account } from '../models/Account.js';
 import { Comment } from '../models/Comment.js';
 import { Event } from '../models/Event.js';
 import { Ticket } from '../models/Ticket.js';
-import { router } from "../router.js";
+import { router } from '../router.js';
 import { api } from './AxiosService.js';
 
 class EventsService {
@@ -22,12 +22,14 @@ class EventsService {
     AppState.events = res.data.map((e) => new Event(e));
   }
 
-  async getEventsForAccount(){
-  const   res = await api.get('api/events')
+  async getEventsForAccount() {
+    const res = await api.get('api/events');
 
-  AppState.myEvents = res.data.map(e => new Event(e))
-// console.log(AppState.myEvents);
- AppState.myEvents= AppState.myEvents.filter(e => e.creator.id == AppState.account.id)
+    AppState.myEvents = res.data.map((e) => new Event(e));
+    // console.log(AppState.myEvents);
+    AppState.myEvents = AppState.myEvents.filter(
+      (e) => e.creator.id == AppState.account.id
+    );
     // console.log(AppState.myEvents);
   }
   async getEventById(id) {
@@ -37,28 +39,28 @@ class EventsService {
   }
 
   async createEvent(formData) {
-  let res = await api.post('api/events', formData);
+    const res = await api.post('api/events', formData);
     // console.log(res.data);
     //TODO fire off CreateTicket from here.
+    const event = new Event(res.data);
+    // let eventId=res.data.id
 
-  let eventId=res.data.id
+    // res = await api.post('/api/tickets',{eventId})
+    // const ticketHolder = res.data
+    // AppState.tickets.push(ticketHolder)
+
+    AppState.events = [event, ...AppState.events];
+    AppState.activeEvent = event;
+
+    router.push({ name: 'EventDetails', params: { eventId: event.id } });
   
-  res = await api.post('/api/tickets',{eventId})
-  const ticketHolder = res.data
-  AppState.tickets.push(ticketHolder)
-
- AppState.activeEvent = new Event(res.data)
- 
-
-// router.push({ name: 'Event', params: { id: event.id } });
-    // AppState.events = [new Event(res.data), ...AppState.events];
-   
   }
 
   async removeEvent(eventId) {
     const res = await api.delete(`api/events/${eventId}`);
     console.log(res.data);
     AppState.events = AppState.events.filter((e) => e.id != eventId);
+    AppState.activeEvent.isCanceled=true
   }
 
   async getCommentsByEventId(eventId) {
