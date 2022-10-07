@@ -15,15 +15,6 @@ class AccountService {
   }
 
 
-  // async getMyEvents(){
-  //   try {
-  //     const res = await api.get('/events')
-  //     console.log(res.data);
-  //   } catch (error) {
-  //     logger.error('Get My Events',error)
-  //   }
-  // }
-
   async getMyTickets() {
     try {
       const res = await api.get('/account/tickets');

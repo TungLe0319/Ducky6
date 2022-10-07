@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ name: 'EventPage', params: { id: ticket.event.id} }">
+  <router-link :to="{ name: 'EventPage', params: { id: ticket.event.id} }" v-if="!ticket.event.isCanceled">
 
     <div class="row justify-content-center ">
     

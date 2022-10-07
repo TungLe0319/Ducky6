@@ -3,7 +3,7 @@
     <div
       :class="getRandomBorder()"
       class="event-Card elevation-5 card my-3 mx-2 border-3 border d-flex flex-column justify-content-end"
-      :style="{ backgroundImage: `url(${event?.coverImg})` }"
+      :style="{ backgroundImage: `url(${event.coverImg})` }"
     >
       <div
         :class="event.capacity <= 0 ? 'bg-danger opacity-50' : ''"
@@ -17,7 +17,7 @@
         >
         <span
           ><p class="text-primary lighten-20">
-            {{ new Date(event.startDate).toLocaleDateString() }}
+            {{ event.startDate }}
           </p></span
         >
         <span class="">

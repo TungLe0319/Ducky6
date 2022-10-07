@@ -74,7 +74,7 @@
               <div class="col-md-6">
               
                 <div class="mt-3 inputBox">
-                  <input type="date" required aria-required="true" v-model="editable.startDate" />
+                  <input type="datetime-local" required aria-required="true" v-model="editable.startDate" />
                   <span>StartDate</span>
                 </div>
               </div>

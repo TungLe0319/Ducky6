@@ -5,7 +5,7 @@
   <main class=" ">
     
     <SideBar  />
-    <div :style="{'margin-left' : sidebarWidth}" class="" >
+    <div :style="{'margin-left' : sidebarWidth}" class="p-sm-5" >
 
       <router-view />
     </div>

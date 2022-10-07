@@ -1,12 +1,12 @@
 <template>
   <div class="ticket-holders d-flex  p-md-2 mt-2 ">
     
-<div>
+<div class="flex-column d-flex justify-content-center">
 
-  <img  :src="comment.creator.picture" alt="" width="75" height="75" class="rounded-circle p-1">
+  <img  :src="comment.creator.picture" alt="" width="75" height="75" class="rounded-circle p-1 box-shadow2">
 </div>
   <div class=" ms-3 commentBodyBg text-dark card p-2 flex-column d-flex justify-content-center w-100 box-shadow2">
-    <p>  <b class="ps-3">{{comment.creator.name}} {{}}   </b></p>
+    <p>  <b class="ps-md-3">{{comment.creator.name}} {{}}   </b></p>
     <p class="ps-md-3">{{comment.body}} </p>
   </div>  
 

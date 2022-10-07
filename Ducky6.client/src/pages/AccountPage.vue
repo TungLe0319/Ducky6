@@ -16,6 +16,7 @@
         <h4 class="text-success lighten-20">Upcoming Events</h4>
       </div>
       <div
+
         class="col-md-8 my-3 animate__animated animate__lightSpeedInRight"
         v-for="t in myTickets"
       >
@@ -59,7 +60,7 @@ export default {
     });
 
     return {
-      events: computed(() => AppState.myEvents),
+      events: computed(() => AppState.myEvents.filter(e=> e.creator.id == AppState.account.id)),
       account: computed(() => AppState.account),
       myTickets: computed(() => AppState.myTickets),
     };

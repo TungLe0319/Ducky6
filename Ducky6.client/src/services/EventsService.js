@@ -1,9 +1,10 @@
-
+import { useRouter } from 'vue-router';
 import { AppState } from '../AppState.js';
 
 import { Comment } from '../models/Comment.js';
 import { Event } from '../models/Event.js';
 import { Ticket } from '../models/Ticket.js';
+import { router } from '../router.js';
 
 import { api } from './AxiosService.js';
 
@@ -27,9 +28,9 @@ class EventsService {
 
     AppState.myEvents = res.data.map((e) => new Event(e));
     // console.log(AppState.myEvents);
-    AppState.myEvents = AppState.myEvents.filter(
-      (e) => e.creator.id == AppState.account.id
-    );
+    // AppState.myEvents = AppState.myEvents.filter(
+    //   (e) => e.creator.id == AppState.account.id
+    // );
     // console.log(AppState.myEvents);
   }
   async getEventById(id) {
@@ -48,19 +49,18 @@ class EventsService {
     // res = await api.post('/api/tickets',{eventId})
     // const ticketHolder = res.data
     // AppState.tickets.push(ticketHolder)
+    console.log(event);
 
     AppState.events = [event, ...AppState.events];
     AppState.activeEvent = event;
-
-    // router.push({ name: 'EventDetails', params: { eventId: event.id } });
-  
+    router.push({ name: 'EventPage', params: { id: AppState.activeEvent.id } });
   }
 
   async removeEvent(eventId) {
     const res = await api.delete(`api/events/${eventId}`);
     console.log(res.data);
     AppState.events = AppState.events.filter((e) => e.id != eventId);
-    AppState.activeEvent.isCanceled=true
+    AppState.activeEvent.isCanceled = true;
   }
 
   async getCommentsByEventId(eventId) {
