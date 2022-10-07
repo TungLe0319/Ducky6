@@ -1,5 +1,5 @@
 <template>
-  <div class="Event-Details container-fluid" v-if="event">
+  <div class="Event-Details container-fluid mt-2" v-if="event">
     <div class="row justify-content-center">
       <div class="col-md-11 animate__fadeIn animate__animated d-flex">
         <EventDetails :event="event" :account="account" />
