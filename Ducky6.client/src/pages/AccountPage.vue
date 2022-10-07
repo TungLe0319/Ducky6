@@ -1,10 +1,9 @@
 <template>
   <div class="text-center accountPage text-light container-fluid">
-   
     <div class="container">
       <div class="row horizontal-scrollable">
         <div
-          class="col-md-3 animate__flipInY animate__animated"
+          class="col-md-3 animate__flipInY animate__animated p-4"
           v-for="e in events"
         >
           <EventCard :event="e" />
@@ -16,7 +15,6 @@
         <h4 class="text-success lighten-20">Upcoming Events</h4>
       </div>
       <div
-
         class="col-md-8 my-3 animate__animated animate__lightSpeedInRight"
         v-for="t in myTickets"
       >
@@ -60,7 +58,9 @@ export default {
     });
 
     return {
-      events: computed(() => AppState.myEvents.filter(e=> e.creator.id == AppState.account.id)),
+      events: computed(() =>
+        AppState.myEvents.filter((e) => e.creator.id == AppState.account.id)
+      ),
       account: computed(() => AppState.account),
       myTickets: computed(() => AppState.myTickets),
     };
@@ -77,8 +77,7 @@ export default {
 
 .horizontal-scrollable {
   border-radius: 4px;
-  box-shadow: rgb(17, 18, 20) 3px 3px 6px 0px inset,
-    rgba(8, 8, 8, 0.5) -3px -3px 6px 1px inset;
+
   flex-wrap: nowrap;
   overflow-x: auto;
   white-space: nowrap;
@@ -93,32 +92,24 @@ export default {
 }
 *::-webkit-scrollbar-track {
   border-radius: 7px;
-  background-color: #dfe9eb;
+  background-color: #111927;
   cursor: pointer;
 }
 
 *::-webkit-scrollbar-track:hover {
-  background-color: #8ddcf0;
+
   cursor: pointer;
 }
 
 *::-webkit-scrollbar-track:active {
-  background-color: #d1eaf0;
+
 }
 
 *::-webkit-scrollbar-thumb {
-  box-shadow: rgba(97, 239, 220, 0.613) 5px 5px,
-    rgba(46, 182, 240, 0.515) 10px 10px, rgba(46, 182, 240, 0.2) 15px 15px,
-    rgba(46, 156, 240, 0.1) 20px 20px;
-
   width: 100px;
   border-radius: 10px;
   background-color: #9dffe5;
 }
 
-*::-webkit-scrollbar-thumb:hover {
-}
 
-*::-webkit-scrollbar-thumb:active {
-}
 </style>

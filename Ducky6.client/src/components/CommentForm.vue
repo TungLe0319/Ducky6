@@ -12,6 +12,8 @@
               cols="140"
               rows="4"
               class="rounded bg-dark text-light"
+              required
+              aria-required="true"
             ></textarea>
 
             <button type="submit" class="btn btn-warning">Post Comment</button>

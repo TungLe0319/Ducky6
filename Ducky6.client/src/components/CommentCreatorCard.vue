@@ -1,5 +1,5 @@
 <template>
-  <div class="ticket-holders d-flex  p-md-2 mt-2 ">
+  <div class="ticket-holders d-flex  p-md-2 my-2 ">
     
 <div class="flex-column d-flex justify-content-center">
 

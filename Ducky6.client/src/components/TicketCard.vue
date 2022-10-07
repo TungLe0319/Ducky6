@@ -4,7 +4,7 @@
     <div class="row justify-content-center ">
     
       <div class="col-md-4 text-end ">
-        <img :src="ticket.event.coverImg" alt="" class="forcedImg img-shadow box-shadow2" >
+        <img :src="ticket.event.coverImg" alt="" class="forcedImg  " >
       </div>
       <div class="col-md-6 d-flex flex-column align-items-start ps-5 bg-secondary box-shadow2 img-shadow  ticket">
       <span class="my-3"><h6> Event: {{ticket.event.name}}</h6></span>
@@ -67,6 +67,12 @@ async removeTicket(){
   width: auto;
   object-fit: cover;
    clip-path: polygon(5% 0, 100% 0, 100% 15%, 95% 20%, 95% 80%, 100% 85%, 100% 100%, 5% 100%, 5% 85%, 0% 80%, 0% 20%, 5% 15% );
+   box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+}
+.forcedImg:hover{
+ transform: scale(1.04);
+ transition: all 0.5s ease;
+
 }
 
 .ticketCircle{

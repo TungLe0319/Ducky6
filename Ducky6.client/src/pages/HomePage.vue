@@ -7,12 +7,13 @@
       <div class="col-md-12">
       
         <div class="d-flex justify-content-around my-3 bg-secondary p-2 rounded box-shadow2">
-          <button @click="getEventsByType('') " class="btn btn-outline-warning " aria-label="getEventsByType">
+   
+          <button @click="getEventsByType('') " class="btn btn-outline-warning  filter" aria-label="getEventsByType">
             All
           </button>
           <button
             @click="getEventsByType('concert') "
-            class="btn btn-outline-warning"
+            class="btn btn-outline-warning filter"
             id="filterBtn"
             aria-label="getEventsByType"
           >
@@ -20,7 +21,7 @@
           </button>
           <button
             @click="getEventsByType('convention')"
-            class="btn btn-outline-warning"
+            class="btn btn-outline-warning filter"
                   id="filterBtn"
                      aria-label="getEventsByType"
           >
@@ -101,6 +102,12 @@ events : computed(() => AppState.events),
 
 <style scoped lang="scss">
 button:active{
+  background-color: red;
+}
+
+
+.filter:focus{
+
   background-color: red;
 }
 

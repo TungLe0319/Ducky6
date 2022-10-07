@@ -2,7 +2,7 @@
   <div class="Event-Details container-fluid" v-if="event">
     <div class="row justify-content-center">
       
-      <div class="col-md-11 animate__lightSpeedInRight animate__animated d-flex ">
+      <div class="col-md-11  animate__fadeIn animate__animated d-flex ">
         <EventDetails :event="event" :account="account" />
       </div>
       <div class="col-md-10 bg-secondary d-flex flex-wrap box-shadow2" v-if="tickets">
@@ -13,7 +13,7 @@
    
         <CommentForm />
       </div>
-      <div class="col-md-8 my-sm-4 bg-secondary box-shadow2 ">
+      <div class="col-md-8 my-sm-4 bg-secondary box-shadow2 p-1 ">
         <CommentCreatorCard :comment="c" v-for="c in comments" class="animate__animated animate__fadeInBottomLeft commentBox"/>
       </div>
     </div>

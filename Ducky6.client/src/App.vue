@@ -43,24 +43,21 @@ export default {
 }
 *::-webkit-scrollbar-track {
   border-radius: 7px;
-  background-color: #DFE9EB;
+  background-color: #111927;
  cursor: pointer;
 }
 
 *::-webkit-scrollbar-track:hover {
-  background-color: #8ddcf0;
+ 
   cursor: pointer;
 }
 
 *::-webkit-scrollbar-track:active {
-  background-color: #d1eaf0;
+
 }
 
 *::-webkit-scrollbar-thumb {
-     box-shadow: rgba(97, 239, 220, 0.613) 5px 5px, rgba(46, 182, 240, 0.515) 10px 10px,
-    rgba(46, 182, 240, 0.2) 15px 15px, rgba(46, 156, 240, 0.1) 20px 20px;
-
-
+  
   width: 100px;
   border-radius: 10px;
   background-color: #fc8506;

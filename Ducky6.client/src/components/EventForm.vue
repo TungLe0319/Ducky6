@@ -48,10 +48,10 @@
   <label class="input-group-text" for="inputGroupSelect01">Type Of Event</label>
   <select class="form-select " id="inputGroupSelect01" required aria-required="true" v-model="editable.type">
     
-    <option selected="convention">Convention</option>
-    <option  value="concert">Concert</option>
-    <option value="digital">Digital</option>
-    <option value="sport">Sport</option>
+    <option selected="convention">convention</option>
+    <option  value="concert">concert</option>
+    <option value="digital">digital</option>
+    <option value="sport">sport</option>
   </select>
 </div>
 

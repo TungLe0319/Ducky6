@@ -6,7 +6,7 @@
       <div v-if="event.creator.id == account.id" class="text-end">
         <i
           @click.prevent="removeEvent()"
-          class="mdi mdi-cancel fs-1 img-shadow cancelBtn"
+          class="mdi mdi-cancel fs-1 cancelBtn"
         ></i>
       </div>
       <div class="col-md-3">
@@ -37,19 +37,40 @@
         </div>
         <!-- -------------------------------------------------- CONDITIONAL RENDER -->
         <div class="d-flex justify-content-between" v-if="event.capacity > 0">
-          <p><b class="text-warning lighten-10"> {{ event.capacity }} </b> spots left</p>
-          <button class="btn btn-warning" v-if="!ticketOwner"  @click="createTicket()">
-            Attend <i class="mdi mdi-account fs-3"></i>
+          <p>
+            <b class="text-warning lighten-10 fs-3                                  "> {{ event.capacity }} </b> spots
+            left
+          </p> 
+          <button
+            class="btn text-light joinBtn"
+            v-if="!ticketOwner"
+            @click="createTicket()"
+          >
+            Attend
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/2257/2257282.png"
+              width="75"
+              height="75"
+              alt="Attend"
+              title="Attend Event"
+              aria-label="Attend Event"
+            />
           </button>
           <div v-else>
-            
-            <button class="btn  p-0 px-1 removeTicket" @click="removeTicket()">
-          <img src="https://cdn-icons-png.flaticon.com/512/2942/2942934.png" class="ticketImg " alt="" width="75" height="75" aria-label="removeTicket" title="Remove Ticket">
+            <button class="btn p-0 px-1 removeTicket" @click="removeTicket()">
+              <img
+                src="https://cdn-icons-png.flaticon.com/512/2942/2942934.png"
+                class="ticketImg"
+                alt=""
+                width="75"
+                height="75"
+                aria-label="removeTicket"
+                title="Remove Ticket"
+              />
             </button>
-
           </div>
         </div>
-        <div v-else>
+        <div class="d-flex justify-content-between" v-else>
           <img
             src="https://sassypecan.com/wp-content/uploads/2018/12/sold-out.jpg"
             alt=""
@@ -59,10 +80,18 @@
           />
           <button
             v-if="ticketOwner"
-            class="btn btn-danger removeTicket"
+            class="btn p-0 px-1 removeTicket"
             @click="removeTicket()"
           >
-            removeTicket
+          <img
+                src="https://cdn-icons-png.flaticon.com/512/2942/2942934.png"
+                class="ticketImg"
+                alt=""
+                width="75"
+                height="75"
+                aria-label="removeTicket"
+                title="Remove Ticket"
+              />
           </button>
         </div>
       </div>
@@ -99,7 +128,7 @@ import Pop from '../utils/Pop.js';
 
 export default {
   props: {
-    event: { type: Object, required: true },
+    event: { type:Object, required: true },
   },
   setup(props) {
     const route = useRoute();
@@ -132,7 +161,7 @@ export default {
           await ticketsService.createTicket({
             eventId: AppState.activeEvent.id || route.params.id,
           });
-          Pop.success('Thank you for Purchasing a Ticket!');
+          Pop.success('Thank you for Joining!');
         } catch (error) {
           Pop.error('You Can Only Have One Ticket To An Event.');
         }
@@ -141,30 +170,16 @@ export default {
       async removeTicket() {
         try {
           // console.log(this.ticketOwner.id);
-          const yes = await Pop.confirm();
+          const yes = await Pop.confirm('Are You Sure You Want To Give Up This Ticket?');
           if (!yes) {
             return;
           }
           await ticketsService.removeTicket(this.ticketOwner.id);
-          Pop.success();
+          Pop.success('Ticket Removed');
         } catch (error) {
           Pop.error(error, '[remove Ticket]');
         }
       },
-
-      // async removeTicket(){
-      //   try {
-      //     const yes = await Pop.confirm('Are You Sure You Want To Give Up this Ticket?')
-      //           if (!yes) {
-      //             return
-      //           }
-
-      //     await accountService.removeMyTicket(props.ticket.id)
-      //       Pop.success('Returned Ticket For The Event')
-      //     } catch (error) {
-      //       Pop.error(error,'[removeTicket]')
-      //     }
-      // }
 
       async removeEvent() {
         try {
@@ -181,7 +196,7 @@ export default {
       },
     };
   },
-  components: {},
+
 };
 </script>
 
@@ -217,18 +232,19 @@ export default {
   height: 60px;
   width: 60px;
   object-fit: cover;
-  border: 10px solid rgba(255, 255, 255, 0.086);
+  border: 5px solid rgba(255, 255, 255, 0.086);
   backdrop-filter: blur(5px);
 }
 
 .cancelBtn {
   cursor: pointer;
+  transition: all 0.75s ease;
 }
 
 .cancelBtn:hover {
   transform: scale(1.14);
   color: red;
-  transition: 0.75s ease;
+  transition: all 0.75s ease;
 }
 
 .removeTicket {
@@ -241,5 +257,13 @@ export default {
   filter: brightness(120%);
 }
 
+.joinBtn {
+  transition: all 0.5s ease;
+}
 
+.joinBtn:hover {
+  transform: scale(1.14);
+  filter: brightness(110%);
+  transition: all 0.5s ease;
+}
 </style>
