@@ -8,7 +8,7 @@
           @click.prevent="removeEvent()"
           aria-label="remove Event"
           title="remove Event"
-          class="mdi mdi-cancel  fs-1 cancelBtn"
+          class="mdi mdi-cancel fs-1 cancelBtn"
         ></i>
       </div>
       <div class="col-md-3">
@@ -47,9 +47,12 @@
           </p>
         </div>
         <!-- -------------------------------------------------- CONDITIONAL RENDER -->
-        <div class="d-flex justify-content-between" v-if="event.capacity > 0">
+        <div
+          class="d-flex justify-content-between"
+          v-if="event.capacity > 0 && !event.isCanceled == true"
+        >
           <p class="animate__animated animate__bounceIn">
-            <b class="text-warning lighten-10 fs-3 "> {{ event.capacity }} </b>
+            <b class="text-warning lighten-10 fs-3"> {{ event.capacity }} </b>
             spots left
           </p>
           <button
@@ -68,7 +71,10 @@
             />
           </button>
           <div v-else>
-            <button class="btn p-0 px-1 removeTicket animate__animated animate__bounceIn" @click="removeTicket()">
+            <button
+              class="btn p-0 px-1 removeTicket animate__animated animate__bounceIn"
+              @click="removeTicket()"
+            >
               <img
                 src="https://cdn-icons-png.flaticon.com/512/2942/2942934.png"
                 class="ticketImg"
@@ -82,7 +88,7 @@
           </div>
         </div>
         <div class="d-flex justify-content-between" v-else>
-             <button
+          <button
             v-if="ticketOwner"
             class="btn p-0 px-1 removeTicket"
             @click="removeTicket()"
@@ -104,7 +110,6 @@
             height="100"
             class="rounded box-shadow2"
           />
-       
         </div>
       </div>
       <div class="p-2 d-flex">

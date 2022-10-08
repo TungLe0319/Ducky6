@@ -19,18 +19,21 @@ class EventsService {
     //TODO
   }
 
-  async getUncancelledEvents(query) {
-    const event = await dbContext.Events.find({
-      isCanceled: false,
-      ...query,
-    }).populate('creator', 'name picture');
+  async getUncancelledEvents() {
+    const event = await dbContext.Events.find().populate(
+      'creator',
+      'name picture'
+    );
 
     return event;
   }
 
-  async getEventsByAccountId(accountId){
-    const event = await dbContext.Events.find(accountId).populate('creator','name picture')
-return event
+  async getEventsByAccountId(accountId) {
+    const event = await dbContext.Events.find(accountId).populate(
+      'creator',
+      'name picture'
+    );
+    return event;
   }
   //Id is req.params.id
   async getEventById(id) {
@@ -52,13 +55,13 @@ return event
   async getEventIfNotCancelled(id) {
     const event = await this.getEventById(id);
 
-    if (event.isCanceled) {
-      throw new BadRequest('Tis Cancelled... sorry.');
-    }
+    // if (event.isCanceled) {
+    //   throw new BadRequest('Tis Cancelled... sorry.');
+    // }
     return event;
   }
   async editEvent(eventData, eventId, userInfo) {
-    const event = await this.getEventIfNotCancelled(eventId)
+    const event = await this.getEventIfNotCancelled(eventId);
 
     // @ts-ignore
     if (userInfo.id != event.creatorId.toString()) {
@@ -66,10 +69,13 @@ return event
     }
 
     if (!event) {
-      throw new BadRequest(
-        'Invalid or Bad Event Id..'
-      );
+      throw new BadRequest('Invalid or Bad Event Id..');
     }
+
+    if (event.isCanceled) {
+      throw new BadRequest('This Event Is Cancelled Sorry...');
+    }
+
     event.name = eventData.name || event.name;
     event.description = eventData.description || event.description;
 
@@ -79,9 +85,9 @@ return event
   async getEventThatIsNotCancelled(eventId) {
     const event = await this.getEventById(eventId);
 
-    if (event.isCanceled) {
-      throw new BadRequest('This Event Is Cancelled Sorry...');
-    }
+    // if (event.isCanceled) {
+    //   throw new BadRequest('This Event Is Cancelled Sorry...');
+    // }
 
     return event;
   }

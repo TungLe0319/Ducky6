@@ -19,7 +19,7 @@ export class EventsController extends BaseController {
   }
   async getEvents(req, res, next) {
     try {
-      const events = await eventsService.getUncancelledEvents(req.query);
+      const events = await eventsService.getUncancelledEvents();
       res.send(events);
     } catch (error) {
       next(error);

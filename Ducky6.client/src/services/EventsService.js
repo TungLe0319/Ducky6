@@ -7,7 +7,7 @@ import { Ticket } from '../models/Ticket.js';
 import { router } from '../router.js';
 
 import { api } from './AxiosService.js';
-import { ticketsService } from "./TicketsService.js";
+import { ticketsService } from './TicketsService.js';
 
 class EventsService {
   async getEvents(type = '') {
@@ -46,7 +46,7 @@ class EventsService {
     //TODO fire off CreateTicket from here.
     const event = new Event(res.data);
     // let eventId=res.data.id
- 
+
     // res = await api.post('/api/tickets',{eventId})
     // const ticketHolder = res.data
     // AppState.tickets.push(ticketHolder)

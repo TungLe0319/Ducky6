@@ -1,8 +1,5 @@
 <template>
-  <router-link
-    :to="{ name: 'EventPage', params: { id: ticket.event.id } }"
-    v-if="!ticket.event.isCanceled"
-  >
+  <router-link :to="{ name: 'EventPage', params: { id: ticket.event.id } }">
     <div class="row justify-content-center">
       <div class="col-md-4 text-end">
         <img :src="ticket.event.coverImg" alt="" class="forcedImg" />

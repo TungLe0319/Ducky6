@@ -45,6 +45,8 @@ a:hover {
   text-decoration: none;
 }
 
+
+
 .navbar{
     background-position: center;
   background-size: cover;
