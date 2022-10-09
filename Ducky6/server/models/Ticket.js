@@ -20,7 +20,6 @@ export const TicketSchema = new Schema(
 //Examples one person owns one Ticket, To an Event Tied To Their Account Id Matching event Id
 TicketSchema.index({ eventId: 1, accountId: 1 }, { unique: true });
 
-TicketSchema.index({ eventId: 1, accountId: 1 }, { unique: true });
 
 TicketSchema.virtual('profile', {
   localField: 'accountId',
