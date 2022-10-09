@@ -16,6 +16,10 @@ export const TicketSchema = new Schema(
 );
 
 //only one person can have a ticket, another person cannot have the same ticket
+//Creates a One to one relationShip Only one person can have one 
+//Examples one person owns one Ticket, To an Event Tied To Their Account Id Matching event Id
+TicketSchema.index({ eventId: 1, accountId: 1 }, { unique: true });
+
 TicketSchema.index({ eventId: 1, accountId: 1 }, { unique: true });
 
 TicketSchema.virtual('profile', {

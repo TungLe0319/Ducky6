@@ -26,13 +26,7 @@ class EventsService {
 
   async getEventsForAccount() {
     const res = await api.get('api/events');
-
     AppState.myEvents = res.data.map((e) => new Event(e));
-    // console.log(AppState.myEvents);
-    // AppState.myEvents = AppState.myEvents.filter(
-    //   (e) => e.creator.id == AppState.account.id
-    // );
-    // console.log(AppState.myEvents);
   }
   async getEventById(id) {
     const res = await api.get(`api/events/${id}`);
@@ -42,16 +36,9 @@ class EventsService {
 
   async createEvent(formData) {
     const res = await api.post('api/events', formData);
-    // console.log(res.data);
-    //TODO fire off CreateTicket from here.
+ 
     const event = new Event(res.data);
-    // let eventId=res.data.id
-
-    // res = await api.post('/api/tickets',{eventId})
-    // const ticketHolder = res.data
-    // AppState.tickets.push(ticketHolder)
-    // console.log(event);
-
+  
     AppState.events = [event, ...AppState.events];
     AppState.activeEvent = event;
     router.push({ name: 'EventPage', params: { id: AppState.activeEvent.id } });

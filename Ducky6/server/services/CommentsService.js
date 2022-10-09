@@ -7,6 +7,7 @@ class CommentsService {
     const comment = await this.getCommentById(commentId);
 
     // @ts-ignore
+//REVIEW if user that is logged in doesn't match the creator Id... to String if comparing an Id from mongoDb to a local id
     if (userId != comment.creatorId.toString()) {
       throw new Forbidden('Not Your Comment Begone');
     }
