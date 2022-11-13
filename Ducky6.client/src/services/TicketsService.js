@@ -8,7 +8,7 @@ class TicketsService {
     let accountId = AppState.account.id;
 
     if (accountId == eventData.creatorId) {
-      console.error('YOU Already Have a Ticket');
+      Pop.error('YOU Already Have a Ticket');
     }
 
     const res = await api.post('/api/tickets', eventData);

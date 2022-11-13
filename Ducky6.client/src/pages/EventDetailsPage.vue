@@ -55,7 +55,7 @@ export default {
     async function getCommentsByEventId() {
       try {
         await eventsService.getCommentsByEventId(route.params.id);
-        console.log(route.params.eventId);
+        // console.log(route.params.eventId);
       } catch (error) {
         Pop.error(error, '[getCommentsByEventId]');
       }
