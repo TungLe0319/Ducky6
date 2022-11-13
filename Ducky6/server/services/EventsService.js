@@ -19,8 +19,11 @@ class EventsService {
     //TODO
   }
 
-  async getUncancelledEvents() {
-    const event = await dbContext.Events.find().populate(
+  async getUncancelledEvents(query) {
+    const event = await dbContext.Events.find({
+      isCanceled:false,
+      ...query,
+    }).populate(
       'creator',
       'name picture'
     );

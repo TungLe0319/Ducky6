@@ -6,7 +6,7 @@ import BaseController from '../utils/BaseController.js';
 
 export class EventsController extends BaseController {
   constructor() {
-    super('/api/events');
+    super('api/events');
     this.router
       .get('', this.getEvents)
       .get('/:id', this.getEventById)
@@ -19,7 +19,7 @@ export class EventsController extends BaseController {
   }
   async getEvents(req, res, next) {
     try {
-      const events = await eventsService.getUncancelledEvents();
+      const events = await eventsService.getUncancelledEvents(req.query);
       res.send(events);
     } catch (error) {
       next(error);

@@ -13,15 +13,18 @@ class EventsService {
   async getEvents(type = '') {
     let res;
     if (type) {
-      res = await api.get('api/events', {
+      // console.log(type);
+      res = await api.get('/api/events', {
         params: {
           type: type,
         },
       });
+      // console.log(res.data);
     } else {
-      res = await api.get('api/events');
+      res = await api.get('/api/events');
     }
-    AppState.events = res.data.map((e) => new Event(e));
+  AppState.events = res.data.map(e=> new Event(e))
+  // console.log(AppState.events);
   }
 
   async getEventsForAccount() {
